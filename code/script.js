@@ -205,7 +205,13 @@ function initClock() {
     const open = isOpenAt(minutes);
     pill.hidden = false;
     pill.dataset.open = open ? 'yes' : 'no';
-    pill.textContent = open ? 'Open now · closes 11:00 PM' : 'Closed · opens 10:00 AM';
+    /* Two spans so the header can shed text as it narrows, in CSS alone —
+       no resize listener, and it survives a rotate. styles.css drops the
+       tail under 760px and clips the word under 480px, where the coloured
+       dot carries the signal on its own. Both strings are literals. */
+    pill.innerHTML = open
+      ? '<span class="status-word">Open now</span><span class="status-tail"> · closes 11:00 PM</span>'
+      : '<span class="status-word">Closed</span><span class="status-tail"> · opens 10:00 AM</span>';
   }
 
   document.querySelectorAll('.hours tbody tr').forEach(row => {

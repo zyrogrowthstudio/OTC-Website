@@ -85,7 +85,7 @@
   --step-1:  clamp(1.25rem, .55vw + 1.12rem, 1.55rem);
   --step-2:  clamp(1.75rem, 1.4vw + 1.4rem, 2.6rem);
   --step-3:  clamp(2.6rem, 4.6vw + 1.4rem, 5rem);
-  --step-4:  clamp(3.4rem, 7vw + 1.5rem, 6.5rem);
+  --step-4:  clamp(2.9rem, 7vw + 1.5rem, 6.5rem);
 
   --pad: clamp(1.25rem, 5vw, 5rem);
   --gap: clamp(1.5rem, 3vw, 3rem);
@@ -395,7 +395,8 @@ img { max-width: 100%; display: block; }
   position: relative; overflow: hidden;
   /* the photo, full bleed behind everything */
   background: var(--surface);
-  height: 100dvh; min-height: 32rem;
+  /* min() so a landscape phone never gets a splash taller than its screen */
+  height: 100dvh; min-height: min(32rem, 100dvh);
   display: grid; place-items: center;
 }
 
@@ -630,7 +631,10 @@ img.ph { object-fit: cover; transition: border-color .3s var(--ease); }
 
 .menu-grid {
   display: grid; gap: 2.5rem clamp(2rem, 6vw, 5rem);
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  /* min(…, 100%) is what stops auto-fit overflowing: below 20rem of space
+     the track gives up its floor instead of pushing the page sideways.
+     Wider than that it resolves to 20rem, so desktop is untouched. */
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   align-items: start;
 }
 /* the fade when you switch course — kept short, and written strongly
@@ -678,7 +682,7 @@ img.ph { object-fit: cover; transition: border-color .3s var(--ease); }
 .events {
   list-style: none; margin: 0; padding: 0;
   display: grid; gap: 1px; background: var(--line);
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
   border: 1px solid var(--line);
 }
 .events li {
@@ -738,10 +742,14 @@ img.ph { object-fit: cover; transition: border-color .3s var(--ease); }
 .carousel-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
 .dots { display: flex; gap: .5rem; }
 .dots button {
+  position: relative;
   width: 7px; height: 7px; padding: 0; border-radius: 50%; cursor: pointer;
   border: 1px solid var(--muted); background: none;
   transition: background-color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
+/* The dot stays 7px to look at, but a finger needs ~24px to hit. This
+   grows the tappable box without moving a pixel of the visible dot. */
+.dots button::after { content: ""; position: absolute; inset: -9px; }
 .dots button.is-on { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
 .arrows { display: flex; gap: .5rem; }
 .arrow, .lb-arrow, .lb-close {
@@ -803,7 +811,7 @@ img.ph { object-fit: cover; transition: border-color .3s var(--ease); }
 
 /* visit ----------------------------------------------------- */
 
-.visit { display: grid; gap: var(--gap) clamp(2rem, 6vw, 5rem); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+.visit { display: grid; gap: var(--gap) clamp(2rem, 6vw, 5rem); grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
 address { font-style: normal; font-size: var(--step-1); line-height: 1.5; }
 .landmark { color: var(--muted); max-width: 40ch; margin-top: 1.25rem; }
 .contact { margin: 1.5rem 0 2rem; }
@@ -894,11 +902,38 @@ address { font-style: normal; font-size: var(--step-1); line-height: 1.5; }
   .nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); }
   .nav a::after { display: none; }
   .brand-name { display: none; }
-  .head-right .btn { display: none; }
+  /* "Book a table" stays. The nav is behind the hamburger here, so this
+     is the only booking entry point until the visitor reaches the form.
+     The room for it comes from .status-tail below, not from hiding it. */
   .scroll-cue { display: none; }
+  /* the hours table below carries the closing time; the pill only has to
+     answer "open or not" once the header gets tight */
+  .status-tail { display: none; }
+  /* ~44px tall: the time and seating pills are the whole booking
+     interaction on a touch screen */
+  .pill { padding: .7rem 1.1rem; }
+  /* the enlarged dot hit areas overlap at the desktop gap, which hands
+     the overlap to whichever dot paints last. Spacing the centres 25px
+     apart gives each one its own 24px+ target. */
+  .dots { gap: 1rem; }
   .slides { min-height: 17rem; }
   .row { grid-template-columns: 1fr; }
   .site-foot { flex-direction: column; align-items: flex-start; }
+}
+
+/* Phones proper. The header runs out of room before this: at 320px there
+   are 280px of content, and logo + status + CTA + hamburger want ~326px.
+   The dot keeps the open/closed signal, the words stay for screen
+   readers, and the CTA gets the space back. */
+@media (max-width: 480px) {
+  .site-head { gap: 1rem; }
+  .status-word {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .status { gap: 0; }
+  .facts { gap: 1.25rem 2rem; }
+  .course li { padding: .8rem 0; }
 }
 </style>
 
@@ -1540,7 +1575,13 @@ function initClock() {
     const open = isOpenAt(minutes);
     pill.hidden = false;
     pill.dataset.open = open ? 'yes' : 'no';
-    pill.textContent = open ? 'Open now · closes 11:00 PM' : 'Closed · opens 10:00 AM';
+    /* Two spans so the header can shed text as it narrows, in CSS alone —
+       no resize listener, and it survives a rotate. styles.css drops the
+       tail under 760px and clips the word under 480px, where the coloured
+       dot carries the signal on its own. Both strings are literals. */
+    pill.innerHTML = open
+      ? '<span class="status-word">Open now</span><span class="status-tail"> · closes 11:00 PM</span>'
+      : '<span class="status-word">Closed</span><span class="status-tail"> · opens 10:00 AM</span>';
   }
 
   document.querySelectorAll('.hours tbody tr').forEach(row => {
