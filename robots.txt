@@ -1,0 +1,12 @@
+# Every crawler, everything. One page, nothing private on it.
+User-agent: *
+Allow: /
+
+# The raw sources and the generated one-file builds are not pages.
+# Keeping them out of the index stops Google indexing three copies
+# of the same site and picking the wrong one as canonical.
+Disallow: /code/
+Disallow: /images/originals/
+Disallow: /images/unused/
+
+Sitemap: https://oldtreecafe.com/sitemap.xml

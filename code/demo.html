@@ -1,0 +1,2328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Old Tree Cafe — Garden Cafe, Kompally Hyderabad</title>
+<meta name="description" content="OTC — Old Tree Cafe, an open garden cafe at Kandlakoya, Kompally, Hyderabad. Wood-fired pizza, all-day breakfast and a long tea list, 10am to 11pm daily.">
+
+<link rel="canonical" href="https://oldtreecafe.com/">
+<meta name="theme-color" content="#2F5138">
+
+<!-- Social preview: what shows when the link is pasted into WhatsApp,
+     Instagram or X. og:image has to be an absolute URL — a relative one
+     is silently ignored by every scraper. 1200x630 is the size they all
+     crop to; anything else gets letterboxed. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oldtreecafe.com/">
+<meta property="og:site_name" content="Old Tree Cafe">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Old Tree Cafe — Kompally, Hyderabad">
+<meta property="og:description" content="An open garden cafe on NH-44 at Kandlakoya. Tables under the canopy, 10am–11pm, every day.">
+<meta property="og:image" content="https://oldtreecafe.com/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The garden at Old Tree Cafe, tables under the canopy">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Cormorant+Garamond:wght@500;600;700&family=Petrona:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* ===========================================================
+   Old Tree Cafe — styles
+
+   Read this file top to bottom:
+     1. tokens      every colour and size, as variables
+     2. themes      light / dark
+     3. phases      the hero's colour by time of day in Hyderabad
+     4. base        body, headings, links, motion rules
+     5. components  header, hero, story, menu, events, gallery,
+                    reviews, booking, visit, footer, lightbox
+     6. responsive  the narrow-screen block, at the very bottom
+
+   To re-skin the whole site, edit section 1 and nothing else.
+   =========================================================== */
+
+/* ── 1. tokens ───────────────────────────────────────────── */
+
+:root {
+  /* light theme (the default) */
+  --bg:        #EEF1E6;   /* pale leaf paper */
+  --surface:   #E4E9DA;   /* raised blocks */
+  --surface-2: #DAE1CD;   /* inputs, pressed states */
+  --ink:       #1B2A21;   /* deep forest, all body text */
+  --muted:     #55655A;   /* secondary text */
+  --line:      #C7D0BA;   /* hairlines, dot leaders */
+  --accent:    #8F5A0D;   /* lamplight amber — dark enough for AA on --bg (5.05) and --surface (4.67) */
+  --on-accent: #FFF8EC;
+  --leaf:      #47732C;
+
+  /* ── five faces, five jobs ────────────────────────────────
+     One face per job, and never two faces doing the same job —
+     that is the whole rule. Change a role here and every place
+     that role appears changes with it.
+
+       display  the voice of the place — the hero headline
+       title    the section headings, and only those
+       read     long prose you actually sit and read
+       hand     the handwritten moments: the signature, the menu
+                courses, the line pulled out of the story
+       ui       anything you click, tab to, or scan — never prose
+       data     every number. Prices, hours, dates, the phone.
+
+     Roles are wired to fallbacks that exist on Windows, macOS and
+     Android, so the page still reads if Google Fonts is blocked. */
+  --font-display: Fraunces, Georgia, "Times New Roman", serif;
+  --font-title:   "Cormorant Garamond", Fraunces, Georgia, serif;
+  --font-read:    Petrona, Georgia, "Times New Roman", serif;
+  --font-hand:    Caveat, "Segoe Script", "Bradley Hand", cursive;
+  --font-ui:      Karla, "Segoe UI", system-ui, sans-serif;
+  --font-data:    "DM Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Caveat draws small for its point size — every script does. This
+     is the multiplier that puts it back on the same optical line as
+     the face beside it, rather than nudging each use by hand. */
+  --hand-scale: 1.35;
+
+  --step--1: clamp(.78rem, .16vw + .74rem, .86rem);
+  --step-0:  clamp(1rem, .25vw + .94rem, 1.12rem);
+  --step-1:  clamp(1.25rem, .55vw + 1.12rem, 1.55rem);
+  --step-2:  clamp(1.75rem, 1.4vw + 1.4rem, 2.6rem);
+  --step-3:  clamp(2.6rem, 4.6vw + 1.4rem, 5rem);
+  --step-4:  clamp(3.4rem, 7vw + 1.5rem, 6.5rem);
+
+  --pad: clamp(1.25rem, 5vw, 5rem);
+  --gap: clamp(1.5rem, 3vw, 3rem);
+  --radius: 3px;
+
+  --ease: cubic-bezier(.22, .68, .36, 1);
+}
+
+/* ── 2. themes ───────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #101812;
+    --surface:   #18221A;
+    --surface-2: #1F2B21;
+    --ink:       #E9EEE2;
+    --muted:     #9AA99A;
+    --line:      #2B382D;
+    --accent:    #E8B458;
+    --on-accent: #14200F;
+    --leaf:      #96C568;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:        #101812;
+  --surface:   #18221A;
+  --surface-2: #1F2B21;
+  --ink:       #E9EEE2;
+  --muted:     #9AA99A;
+  --line:      #2B382D;
+  --accent:    #E8B458;
+  --on-accent: #14200F;
+  --leaf:      #96C568;
+}
+
+/* ── 3. phases ───────────────────────────────────────────────
+   script.js stamps data-phase on <html> from the real clock in
+   Hyderabad. Only the hero light changes — never the text
+   colours, or the page would stop being readable at night.    */
+
+:root                       { --wash-a: #7FB05A; --wash-b: #CFE0A8; --wash-strength: .18; }
+:root[data-phase="morning"] { --wash-a: #7FB05A; --wash-b: #CFE0A8; --wash-strength: .20; }
+:root[data-phase="golden"]  { --wash-a: #C79A3A; --wash-b: #8FB25C; --wash-strength: .22; }
+:root[data-phase="dusk"]    { --wash-a: #C87A2A; --wash-b: #6E8F52; --wash-strength: .26; }
+:root[data-phase="night"]   { --wash-a: #E0A94E; --wash-b: #2F5138; --wash-strength: .30; }
+
+/* ── 4. base ─────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Anything given display: flex below still has to obey the hidden
+   attribute — the browser's own [hidden] rule loses to a class. */
+[hidden] { display: none !important; }
+
+/* The canopy canvas is pinned to the viewport and sits behind the
+   whole page. Everything else is lifted one layer above it, so the
+   leaves drift behind the text rather than over it. Sections stay
+   transparent on purpose — the body colour is the ground they show
+   against. Give a section a background and you cover the leaves. */
+.dapple {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+.site-head, main, .site-foot { position: relative; z-index: 1; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 30, "WONK" 1;
+  font-weight: 600;
+  line-height: 1.04;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+.mono {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+
+.sr {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip {
+  position: absolute; left: -9999px; z-index: 60;
+  background: var(--accent); color: var(--on-accent); padding: .6rem 1rem;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font-family: var(--font-data);
+  font-size: var(--step--1);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Section headings get their own face. Cormorant is the opposite
+   of Fraunces in every way that matters — thin where Fraunces is
+   soft, high-contrast where Fraunces is even — so the two never
+   read as a near-miss of each other, which is the failure mode
+   when a page runs two serifs.
+
+   Three corrections come with it. It draws small for its point
+   size, so the size goes up. It draws light, so the weight goes
+   up. And SOFT/WONK are Fraunces-only axes inherited from the
+   h1/h2/h3 rule above — left in place the browser ignores them,
+   but the declaration is a lie about what this element is, so it
+   is switched off explicitly. */
+.sec-title {
+  font-family: var(--font-title);
+  font-variation-settings: normal;
+  font-weight: 600;
+  font-size: calc(var(--step-2) * 1.2);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin-bottom: 2.5rem;
+}
+.note { color: var(--muted); font-size: var(--step--1); }
+.note a { color: var(--accent); }
+
+/* hover — headings draw their own rule in from the left. The traits and
+   events headings answer to the whole card being hovered, not just the
+   words, so the target is the size of the thing you are reading. */
+.sec-title, .traits h3, .events h3 {
+  padding-bottom: .3rem;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 2px;
+  transition: background-size .45s var(--ease);
+}
+.sec-title:hover, .traits li:hover h3, .events li:hover h3 { background-size: 100% 2px; }
+.traits li { transition: border-color .3s var(--ease); }
+.traits li:hover { border-left-color: var(--accent); }
+
+/* scroll reveal — only applied once JS is confirmed running, so the
+   page is fully readable if JavaScript fails or is switched off. */
+.js .reveal > * { opacity: 0; transform: translateY(16px); }
+.js .reveal.is-in > * {
+  opacity: 1; transform: none;
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.js .reveal.is-in > *:nth-child(2) { transition-delay: .08s; }
+.js .reveal.is-in > *:nth-child(3) { transition-delay: .16s; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal > * { opacity: 1; transform: none; }
+}
+
+/* ── 5. components ───────────────────────────────────────── */
+
+/* header ---------------------------------------------------- */
+
+.site-head {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: var(--gap);
+  padding: .85rem var(--pad);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease), padding .3s var(--ease);
+}
+.site-head.is-stuck { border-bottom-color: var(--line); padding-block: .6rem; }
+
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+
+/* square JPEG badge, clipped to a circle so its white corners drop away */
+.brand-logo {
+  width: 2.4rem; height: 2.4rem; flex: none;
+  border-radius: 50%; object-fit: cover;
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  font-weight: 700; font-size: 1.35rem; letter-spacing: .04em;
+  color: var(--leaf);
+}
+.brand-name {
+  font-size: var(--step--1); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+
+.nav { display: flex; gap: 1.4rem; font-size: var(--step--1); letter-spacing: .06em; text-transform: uppercase; }
+.nav a {
+  position: relative; text-decoration: none; color: var(--muted);
+  padding-block: .35rem; transition: color .25s var(--ease);
+}
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.nav a:hover { color: var(--ink); }
+.nav a:hover::after, .nav a.is-here::after { transform: scaleX(1); }
+.nav a.is-here { color: var(--ink); }
+
+.head-right { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
+
+.status {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--font-data);
+  font-size: var(--step--1); color: var(--muted); white-space: nowrap;
+}
+.status::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted);
+}
+.status[data-open="yes"] { color: var(--leaf); }
+.status[data-open="yes"]::before {
+  background: var(--leaf);
+  animation: breathe 3.2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--leaf) 60%, transparent); }
+  50%      { box-shadow: 0 0 0 5px color-mix(in srgb, var(--leaf) 0%, transparent); }
+}
+
+.nav-toggle {
+  display: none; width: 40px; height: 34px;
+  background: none; border: 1px solid var(--line); border-radius: var(--radius);
+  cursor: pointer; position: relative;
+}
+.bars, .bars::before, .bars::after {
+  position: absolute; left: 9px; width: 20px; height: 1.5px;
+  background: var(--ink); transition: transform .3s var(--ease), opacity .2s;
+}
+.bars { top: 16px; }
+.bars::before { content: ""; top: -6px; left: 0; }
+.bars::after  { content: ""; top: 6px; left: 0; }
+[aria-expanded="true"] .bars { background: transparent; }
+[aria-expanded="true"] .bars::before { transform: translateY(6px) rotate(45deg); }
+[aria-expanded="true"] .bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
+/* buttons --------------------------------------------------- */
+
+.btn {
+  display: inline-block; font-size: var(--step--1);
+  letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  padding: .8rem 1.5rem; border-radius: var(--radius);
+  border: 1px solid var(--accent); cursor: pointer;
+  font-family: inherit;
+  transition: transform .2s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-solid { background: var(--accent); color: var(--on-accent); font-weight: 700; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--accent); }
+.btn-sm { padding: .55rem 1rem; }
+.btn-block { width: 100%; padding-block: 1rem; }
+
+/* splash ---------------------------------------------------- */
+
+/* The first screen. The photo fills the panel, a sheet of frosted
+   glass covers the whole of it, and the lockup sits on top in solid
+   ink. Three knobs:
+     --otc      the letter size, which the whole lockup scales from
+     --otc-ink  the lockup's colour. Fixed, not themed: it sits on a
+                photo in both themes, so it can't follow --bg.
+     --frost    how frosted the glass is. See below. */
+
+.splash {
+  --otc: clamp(5.5rem, 26vw, 18rem);
+  --otc-ink: #FFF8EC;
+
+  /* ── FROST INTENSITY ──  0 to 100, change this one number ──
+       0    off. the photo is sharp and untouched
+       25   a light haze, the photo still reads
+       45   soft focus                          <- the default
+       70   heavy, the photo is mood not subject
+       100  milked right out, a pale texture
+     Drives the blur and the white wash together, so the number is
+     the whole effect. Anything outside 0-100 still works, it just
+     stops looking like glass.                                     */
+  --frost: 10;
+
+  position: relative; overflow: hidden;
+  /* the photo, full bleed behind everything */
+  background: var(--surface);
+  height: 100dvh; min-height: 32rem;
+  display: grid; place-items: center;
+}
+
+/* the glass — one sheet over the entire photo. backdrop-filter blurs
+   everything painted under it, so the photo goes soft. The white wash on top is the frost itself; the dark gradient
+   under it is the scrim, which is what keeps pale text legible no
+   matter which photo gets dropped in. */
+.splash::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  backdrop-filter: blur(calc(var(--frost) * .3px)) saturate(1.25);
+  -webkit-backdrop-filter: blur(calc(var(--frost) * .3px)) saturate(1.25);
+  background:
+    linear-gradient(180deg,
+      rgb(255 255 255 / calc(var(--frost) * .38%)),
+      rgb(255 255 255 / calc(var(--frost) * .22%))),
+    linear-gradient(180deg,
+      rgb(10 16 12 / .4), rgb(10 16 12 / .26) 45%, rgb(10 16 12 / .55));
+}
+/* no backdrop-filter (older Firefox): no blur to be had, so lean the
+   wash darker instead — the letters still have to clear the photo */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .splash::before {
+    background: linear-gradient(180deg,
+      rgb(10 16 12 / .62), rgb(10 16 12 / .5) 45%, rgb(10 16 12 / .72));
+  }
+}
+
+.splash-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border: 0;
+  /* the pointer nudges the photo — script.js §13 sets --px/--py from
+     -1 to 1. Scaled up so an edge never shows. */
+  transform: scale(1.14) translate(calc(var(--px, 0) * -2.5%), calc(var(--py, 0) * -2.5%));
+  transition: transform .6s var(--ease);
+}
+
+.splash-lockup {
+  position: relative; z-index: 2;
+  display: grid; justify-items: center; text-align: center;
+  gap: clamp(.75rem, 2vw, 1.75rem);
+  pointer-events: none;               /* never blocks the splash pointer */
+}
+
+/* OTC — solid letters straight on the glass. No pane of its own: the
+   whole sheet is already frosted, so a second one would not show. */
+
+.splash-otc {
+  margin: 0; line-height: .85;
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  font-weight: 700; font-size: var(--otc); letter-spacing: .02em;
+  color: var(--otc-ink);
+  /* lifts the letters off the glass at low --frost, where the photo
+     underneath is still sharp enough to fight them */
+  text-shadow: 0 .04em .12em rgb(10 16 12 / .35);
+}
+
+.splash-mark {
+  width: clamp(3rem, 6vw, 4.5rem); height: auto;
+  fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .6s var(--ease);
+}
+.splash-mark .canopy, .splash-mark .trunk, .splash-mark .cup { stroke: var(--otc-ink); }
+.splash:hover .splash-mark { transform: rotate(-4deg) scale(1.07); }
+
+/* The signature under the letters. A script is the one thing that
+   should never be uppercased or letterspaced — the strokes are
+   drawn to join, and spacing them apart breaks every join. So this
+   drops both, and takes the size back with --hand-scale. */
+.splash-name {
+  margin: .2rem 0 0; font-family: var(--font-hand);
+  font-size: calc(var(--step-1) * var(--hand-scale));
+  line-height: 1.2; color: var(--otc-ink);
+}
+
+/* hero ------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: var(--gap); align-items: center;
+  padding: clamp(2.5rem, 6vw, 5rem) var(--pad) clamp(3.5rem, 8vw, 6.5rem);
+}
+
+.hero h1 {
+  font-size: var(--step-4);
+  font-variation-settings: "SOFT" 20, "WONK" 1;
+  letter-spacing: -.03em;
+}
+/* The lede and the story are the only places on this page where
+   someone reads more than a line at a time, so they get the face
+   built for it. Petrona is quieter than Fraunces and lower in
+   contrast than Karla — it disappears, which is the job. */
+.lede {
+  max-width: 36ch; color: var(--muted); font-family: var(--font-read);
+  font-size: var(--step-1); line-height: 1.5; margin: 1.5rem 0 0;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+
+.facts {
+  display: flex; flex-wrap: wrap; gap: 2.5rem;
+  margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line);
+}
+.facts div { display: grid; gap: .25rem; }
+.facts dt { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-size: var(--step-1); font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+.hero-shot { margin: 0; }
+
+.scroll-cue {
+  position: absolute; left: var(--pad); bottom: 1.25rem; z-index: 1;
+  margin: 0; font-family: var(--font-data);
+  font-size: .7rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted);
+}
+.scroll-cue::after {
+  content: ""; display: block; width: 1px; height: 28px; margin-top: .5rem;
+  background: linear-gradient(var(--muted), transparent);
+  animation: drip 2.6s var(--ease) infinite;
+  transform-origin: top;
+}
+@keyframes drip {
+  0%   { transform: scaleY(0); opacity: 0; }
+  35%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1) translateY(28px); opacity: 0; }
+}
+
+/* photo boxes — .ph holds the aspect ratio; index.html puts a real
+   <img class="ph"> straight in, no placeholder step. */
+
+.ph {
+  display: block; position: relative;
+  aspect-ratio: 4 / 3; border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(58deg, transparent 0 14px, color-mix(in srgb, var(--leaf) 9%, transparent) 14px 16px),
+    repeating-linear-gradient(-58deg, transparent 0 14px, color-mix(in srgb, var(--leaf) 7%, transparent) 14px 16px),
+    var(--surface);
+}
+.ph-tall { aspect-ratio: 4 / 5; }
+.ph-wide { aspect-ratio: 16 / 9; }
+/* .ph classes stay on the <img> so the layout never shifts — the
+   image just needs to fill the box */
+img.ph { object-fit: cover; transition: border-color .3s var(--ease); }
+.ph:hover { border-color: var(--accent); }
+
+/* section bands --------------------------------------------- */
+
+.band, .menu, .visit, .story, .reviews, .book {
+  padding: clamp(3.5rem, 7vw, 6rem) var(--pad);
+  border-top: 1px solid var(--line);
+}
+
+.traits {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.traits li {
+  display: grid; gap: .4rem; align-content: start;
+  padding-left: 1rem; border-left: 2px solid var(--leaf);
+}
+.traits h3 { font-size: var(--step-1); }
+.traits p { margin: 0; color: var(--muted); }
+.band > .note { margin-top: 2.5rem; }
+
+/* story ----------------------------------------------------- */
+
+.story { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--gap); align-items: center; }
+.story-shot { margin: 0; }
+.story-copy p { color: var(--muted); max-width: 62ch; font-family: var(--font-read); font-size: 1.05em; line-height: 1.7; }
+.story .sec-title { margin-bottom: 1.75rem; }
+
+/* the line pulled out of the story. Our own wording, not a quotation —
+   see the REVIEWS comment in script.js. */
+.pull {
+  margin: 2.5rem 0 0; padding: 1.5rem 0 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-hand);
+  font-size: calc(var(--step-1) * var(--hand-scale));
+  line-height: 1.35; color: var(--ink);
+}
+
+/* menu ------------------------------------------------------ */
+
+.menu-head {
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  justify-content: space-between; gap: 1rem; margin-bottom: 2rem;
+}
+.menu-head .sec-title { margin-bottom: 0; }
+
+.mark { display: inline-block; width: .7em; height: .7em; border: 1.5px solid; border-radius: 1px; vertical-align: -.02em; }
+.mark-v { border-color: var(--leaf); }
+.mark-n { border-color: #A5482F; }
+:root[data-theme="dark"] .mark-n { border-color: #D97A5E; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mark-n { border-color: #D97A5E; } }
+
+/* the three food shots above the list — one row, no list bullets */
+.shot-strip {
+  list-style: none; margin: 0 0 2.75rem; padding: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.tabs { display: flex; flex-wrap: wrap; gap: .5rem; border-bottom: 1px solid var(--line); }
+.tabs button {
+  background: none; border: 0; cursor: pointer; font-family: inherit;
+  font-size: var(--step-1);
+  font-family: var(--font-display); font-variation-settings: "SOFT" 30, "WONK" 1;
+  color: var(--muted); padding: .5rem .25rem 1rem; margin-right: 1.25rem;
+  position: relative; transition: color .25s var(--ease);
+}
+.tabs button::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease);
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-selected="true"] { color: var(--ink); }
+.tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+
+.subtabs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 2.5rem; }
+.subtabs button {
+  background: none; cursor: pointer; font-family: inherit;
+  border: 1px solid var(--line); border-radius: 100px;
+  padding: .4rem 1rem; font-size: var(--step--1);
+  letter-spacing: .04em; color: var(--muted);
+  transition: border-color .25s var(--ease), color .25s var(--ease), background-color .25s var(--ease);
+}
+.subtabs button:hover { color: var(--ink); border-color: var(--accent); }
+.subtabs button.is-on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+.menu-grid {
+  display: grid; gap: 2.5rem clamp(2rem, 6vw, 5rem);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  align-items: start;
+}
+/* the fade when you switch course — kept short, and written strongly
+   enough that the slower reveal transition above does not win it */
+.menu-grid.is-swapping { opacity: 0; }
+.menu-grid, .js .reveal.is-in > .menu-grid { transition: opacity .22s var(--ease); }
+
+/* Course headings are the one place a menu is allowed a bit of
+   hand. Caps and letterspacing come off for the same reason as
+   the signature above; the rule and the accent colour stay, so it
+   still reads as the top of a list and not as decoration. */
+.course h3 {
+  font-family: var(--font-hand);
+  font-size: calc(var(--step-1) * var(--hand-scale));
+  font-weight: 700; line-height: 1.15;
+  color: var(--accent); padding-bottom: .5rem; border-bottom: 1px solid var(--line);
+}
+/* Sits under the course title, so it stays quieter than it: no rule,
+   no accent, no caps — the course heading owns that weight. */
+.course-group {
+  font-family: var(--font-ui); font-size: var(--step--1); font-weight: 500;
+  letter-spacing: .06em; color: var(--muted);
+  margin: 1.6rem 0 .3rem;
+}
+.course-group:first-of-type { margin-top: .9rem; }
+
+.course ul { list-style: none; margin: 0; padding: 0; }
+.course li {
+  display: flex; align-items: baseline; gap: .6rem;
+  padding: .65rem 0; border-bottom: 1px dotted var(--line);
+}
+.course .dish { flex: 1; }
+.course .price {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums; color: var(--muted);
+}
+.course .pick {
+  font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 100px; padding: .1rem .5rem; white-space: nowrap;
+}
+
+/* events ---------------------------------------------------- */
+
+.events {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1px; background: var(--line);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  border: 1px solid var(--line);
+}
+.events li {
+  /* not quite opaque, so the leaves still drift behind the cards
+     while the 1px grid gaps still read as dividing lines */
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  padding: 1.75rem;
+  transition: background-color .3s var(--ease);
+}
+.events li:hover { background: var(--surface); }
+.events .when { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+.events h3 { font-size: var(--step-1); margin-bottom: .6rem; }
+.events p:last-child { color: var(--muted); }
+
+/* gallery --------------------------------------------------- */
+
+.gallery {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.shot {
+  display: block; width: 100%; padding: 0; border: 0; background: none;
+  cursor: zoom-in; border-radius: var(--radius); overflow: hidden;
+}
+.shot .ph { transition: transform .5s var(--ease), background-position .5s var(--ease), border-color .3s var(--ease); }
+.shot:hover .ph { transform: scale(1.03); }
+
+/* reviews --------------------------------------------------- */
+
+.reviews { display: grid; grid-template-columns: minmax(0, .55fr) minmax(0, 1.45fr); gap: var(--gap); align-items: center; }
+
+.review-stats .big {
+  font-size: var(--step-4); line-height: 1; margin: 0 0 .5rem;
+  font-variant-numeric: tabular-nums; letter-spacing: -.04em;
+}
+.review-stats .star { color: var(--accent); font-size: .45em; vertical-align: .35em; margin-left: .15em; }
+
+.carousel { position: relative; }
+.slides { position: relative; min-height: 13rem; }
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; transform: translateX(18px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+  pointer-events: none;
+}
+.slide.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.slide blockquote { margin: 0; }
+.slide .quote {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+  font-size: var(--step-1); line-height: 1.4; color: var(--ink);
+}
+.slide .who { font-size: var(--step--1); color: var(--muted); margin-top: 1rem; }
+.slide .stars { color: var(--accent); letter-spacing: .15em; margin-bottom: 1rem; font-size: var(--step--1); }
+
+.carousel-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.dots { display: flex; gap: .5rem; }
+.dots button {
+  width: 7px; height: 7px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--muted); background: none;
+  transition: background-color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.dots button.is-on { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
+.arrows { display: flex; gap: .5rem; }
+.arrow, .lb-arrow, .lb-close {
+  width: 2.5rem; height: 2.5rem; cursor: pointer;
+  background: none; border: 1px solid var(--line); border-radius: 50%;
+  color: var(--ink); font-size: 1rem; font-family: inherit;
+  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+}
+.arrow:hover { border-color: var(--accent); background: var(--surface); }
+
+/* booking --------------------------------------------------- */
+
+.book { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap) clamp(2rem, 6vw, 5rem); align-items: start; }
+.book-copy p { color: var(--muted); max-width: 44ch; }
+
+.book-form { display: grid; gap: 1.5rem; }
+.field { display: grid; gap: .5rem; border: 0; padding: 0; margin: 0; min-width: 0; }
+/* .label is the stepper's caption — a <span>, because a <label> with
+   nothing to point at is invalid; the stepper reads it via aria-labelledby */
+.field > label, .field > legend, .field > .label {
+  font-size: var(--step--1); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); padding: 0;
+}
+.row { display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: start; }
+
+.book-form input[type="text"],
+.book-form input[type="date"] {
+  font-family: inherit; font-size: var(--step-0); color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: .75rem .9rem; width: 100%;
+  transition: border-color .25s var(--ease);
+}
+.book-form input:focus { border-color: var(--accent); }
+.book-form input::placeholder { color: color-mix(in srgb, var(--muted) 70%, transparent); }
+.book-form input[type="date"] { font-family: var(--font-data); }
+
+.stepper { display: flex; align-items: center; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.stepper button {
+  width: 2.75rem; height: 2.9rem; background: none; border: 0; cursor: pointer;
+  color: var(--ink); font-size: 1.15rem; font-family: inherit;
+  transition: background-color .2s var(--ease);
+}
+.stepper button:hover { background: var(--surface-2); }
+.stepper output { min-width: 2.5rem; text-align: center; font-size: var(--step-0); }
+
+.pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pill {
+  cursor: pointer; font-family: var(--font-data);
+  font-size: var(--step--1); background: none; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 100px; padding: .45rem .9rem;
+  transition: border-color .2s var(--ease), color .2s var(--ease), background-color .2s var(--ease);
+}
+.pill:hover { border-color: var(--accent); color: var(--ink); }
+.pill.is-on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+
+.form-error { color: #A5482F; font-size: var(--step--1); margin: 0; }
+:root[data-theme="dark"] .form-error { color: #E08A6C; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .form-error { color: #E08A6C; } }
+
+/* visit ----------------------------------------------------- */
+
+.visit { display: grid; gap: var(--gap) clamp(2rem, 6vw, 5rem); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+address { font-style: normal; font-size: var(--step-1); line-height: 1.5; }
+.landmark { color: var(--muted); max-width: 40ch; margin-top: 1.25rem; }
+.contact { margin: 1.5rem 0 2rem; }
+.contact a { color: var(--accent); text-underline-offset: 3px; }
+
+.hours { border-collapse: collapse; width: 100%; max-width: 26rem; }
+.hours caption { text-align: left; font-size: var(--step--1); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding-bottom: .75rem; }
+.hours th, .hours td { text-align: left; padding: .5rem 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.hours td { text-align: right; color: var(--muted); }
+.hours tr.is-today th, .hours tr.is-today td { color: var(--ink); }
+.hours tr.is-today th::before { content: "→ "; color: var(--accent); }
+
+.faq { margin-top: 3rem; max-width: 34rem; }
+.faq-title { font-size: var(--step--1); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-family: var(--font-ui); font-weight: 700; margin-bottom: .5rem; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  cursor: pointer; padding: .9rem 0; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-size: 1.2rem; line-height: 1; transition: transform .3s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); padding-bottom: 1rem; margin: 0; max-width: 52ch; font-family: var(--font-read); }
+
+/* footer ---------------------------------------------------- */
+
+.site-foot {
+  padding: clamp(2.5rem, 5vw, 4rem) var(--pad);
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  display: flex; flex-wrap: wrap; gap: var(--gap);
+  align-items: center; justify-content: space-between;
+  font-size: var(--step--1); color: var(--muted);
+}
+.site-foot .brand-mark { margin-bottom: .35rem; }
+.site-foot p { margin: 0; }
+.site-foot a { color: var(--ink); }
+.foot-nav { display: flex; gap: 1.25rem; }
+
+/* lightbox -------------------------------------------------- */
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, #0B120D 88%, transparent);
+  backdrop-filter: blur(6px);
+  animation: fade .3s var(--ease);
+}
+@keyframes fade { from { opacity: 0; } }
+.lb-stage { margin: 0; flex: 1; max-width: 62rem; display: grid; gap: 1rem; }
+.lb-img {
+  aspect-ratio: 3 / 2; border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, .16);
+  background:
+    repeating-linear-gradient(58deg, transparent 0 18px, rgba(150, 197, 104, .10) 18px 21px),
+    repeating-linear-gradient(-58deg, transparent 0 18px, rgba(150, 197, 104, .07) 18px 21px),
+    #18221A;
+  animation: pop .35s var(--ease);
+}
+@keyframes pop { from { opacity: 0; transform: scale(.97); } }
+.lightbox figcaption { color: #C9D5C3; font-size: var(--step--1); text-align: center; }
+.lb-arrow, .lb-close { color: #E9EEE2; border-color: rgba(255, 255, 255, .25); flex: none; }
+.lb-arrow:hover, .lb-close:hover { background: rgba(255, 255, 255, .12); }
+.lb-close { position: absolute; top: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); }
+
+/* ── 6. responsive ───────────────────────────────────────── */
+
+@media (max-width: 980px) {
+  .hero, .story, .reviews, .book { grid-template-columns: 1fr; }
+  .hero-shot, .story-shot { order: -1; }
+  .ph-tall { aspect-ratio: 4 / 3; }
+  .reviews { gap: 2.5rem; }
+  .review-stats { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .review-stats .eyebrow { width: 100%; margin-bottom: .5rem; }
+  .review-stats .big { font-size: var(--step-2); margin: 0; }
+}
+
+@media (max-width: 760px) {
+  .nav-toggle { display: block; }
+  .site-head { flex-wrap: wrap; }
+  .nav {
+    order: 3; width: 100%; flex-direction: column; gap: 0;
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s var(--ease);
+  }
+  .nav.is-open { max-height: 20rem; }
+  .nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+  .nav a::after { display: none; }
+  .brand-name { display: none; }
+  .head-right .btn { display: none; }
+  .scroll-cue { display: none; }
+  .slides { min-height: 17rem; }
+  .row { grid-template-columns: 1fr; }
+  .site-foot { flex-direction: column; align-items: flex-start; }
+}
+</style>
+
+<!-- Structured data. This is what tells Google the page is a place and
+     not an article: the address, the hours and the phone, in the shape
+     Google reads. Test it at search.google.com/test/rich-results.
+
+     Deliberately NO aggregateRating. Marking up your own Google score
+     on your own site is self-serving review markup — Google ignores it
+     for local businesses and can penalise the page. The 4.6 stays as
+     visible text with a link to the real listing, which is allowed.
+
+     TODO (Aditya): telephone below is the number already on the site.
+     Public listings show two others (+91 87900 46493, +91 90003 02213)
+     and closing time is listed as both 22:00 and 23:00. Confirm both
+     with the cafe, then fix them HERE, in the hours table, in the
+     footer and in CAFE.phone in script.js — all four must agree. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": "https://oldtreecafe.com/#restaurant",
+  "name": "Old Tree Cafe",
+  "alternateName": "OTC",
+  "url": "https://oldtreecafe.com/",
+  "image": "https://oldtreecafe.com/images/og.jpg",
+  "logo": "https://oldtreecafe.com/images/logo.jpeg",
+  "telephone": "+918019409347",
+  "priceRange": "₹₹",
+  "servesCuisine": ["Continental", "Italian", "Coffee", "Desserts"],
+  "menu": "https://oldtreecafe.com/#menu",
+  "acceptsReservations": true,
+  "publicAccess": true,
+  "smokingAllowed": false,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "H.No 2-66/1, Kandlakoya, opposite KSR Convention, NH-44",
+    "addressLocality": "Kompally",
+    "addressRegion": "Telangana",
+    "postalCode": "501401",
+    "addressCountry": "IN"
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "10:00",
+    "closes": "23:00"
+  }],
+  "sameAs": [
+    "https://www.instagram.com/otc.kompally/",
+    "https://www.facebook.com/OTC.kompally/"
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The canopy. One canvas, fixed behind the whole page: drifting
+     light, a glow that follows the cursor, and leaves that scatter
+     away from it. Drawn in script.js §5. -->
+<canvas class="dapple" id="dapple" aria-hidden="true"></canvas>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════════
+     Sticky. The nav links highlight themselves as you scroll past each
+     section (scroll-spy, in script.js).                              -->
+<header class="site-head" id="head">
+  <a class="brand" href="#top">
+    <!-- the badge, in place of the old OTC lettering. A JPEG has no
+         transparency, so styles.css clips it to a circle to drop the
+         white corners. -->
+    <img class="brand-logo" src="images/logo.jpeg" alt="" aria-hidden="true">
+    <span class="brand-name">Old Tree Cafe</span>
+  </a>
+
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="#story">The tree</a>
+    <a data-ev="menu_view" href="#menu">Menu</a>
+    <a href="#events">Events</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#visit">Visit</a>
+  </nav>
+
+  <div class="head-right">
+    <span class="status" id="status" hidden></span>
+    <a data-ev="book_click" class="btn btn-solid btn-sm" href="#book">Book a table</a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="bars" aria-hidden="true"></span>
+      <span class="sr">Menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+
+  <!-- ══ SPLASH ═════════════════════════════════════════════════════
+       The first screen. The photo fills the whole panel, and the
+       lockup — mark, OTC, name — sits on top of it in solid colour.
+       OTC sits on a pane of frosted glass, which blurs the photo
+       under it. The mark and the name are plain ink. See styles.css.
+
+       The photo behind the glass is images/splash.avif. It drifts a
+       little with the pointer — script.js §13. -->
+  <section class="splash" id="splash">
+    <img class="splash-photo" src="images/splash.avif" alt="" aria-hidden="true" fetchpriority="high">
+
+    <div class="splash-lockup">
+      <p class="splash-otc">OTC</p>
+      <p class="splash-name">Old Tree Cafe · Kandlakoya</p>
+    </div>
+
+  </section>
+  <!-- ══ HERO ═══════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow">Kandlakoya · NH&#8209;44 · Kompally</p>
+      <h1>Coffee under<br>the old tree.</h1>
+      <p class="lede">An open garden cafe where the seating sits under the
+        plants, not beside them. Wood-fired pizza, all-day breakfast and a
+        long tea list, from ten in the morning till eleven at night.</p>
+
+      <div class="hero-actions">
+        <a data-ev="book_click" class="btn btn-solid" href="#book">Book a table</a>
+        <a data-ev="menu_view" class="btn btn-ghost" href="#menu">See the menu</a>
+      </div>
+
+      <dl class="facts">
+        <div><dt>Open daily</dt><dd class="mono">10:00 – 23:00</dd></div>
+        <div><dt>Two people</dt><dd class="mono">~₹1,000</dd></div>
+        <div><dt>Google rating</dt><dd class="mono"><span data-count="4.6" data-dp="1">4.6</span> ★</dd></div>
+      </dl>
+    </div>
+
+    <figure class="hero-shot">
+      <img class="ph ph-tall" src="images/garden.jpeg" alt="Garden seating, evening" decoding="async" loading="lazy">
+    </figure>
+
+  </section>
+
+  <!-- ══ THE TREE ═══════════════════════════════════════════════════ -->
+  <section class="story reveal" id="story">
+    <figure class="story-shot">
+      <img class="ph ph-tall" src="images/tree.jpeg" alt="The tree, from below" decoding="async" loading="lazy">
+    </figure>
+
+    <div class="story-copy">
+      <p class="eyebrow">OTC Cafe</p>
+      <h2 class="sec-title">The garden was built around the tree, not the other way round.</h2>
+      <p>Most places on this stretch of NH&#8209;44 cleared the plot first and
+        decided what to plant afterwards. OTC did the opposite. The tables were
+        laid out to keep the canopy overhead, which is why the seating wanders
+        instead of sitting in rows, and why the light on your table moves through
+        the afternoon.</p>
+      <p>It means a few things in practice. The garden is cooler than the car
+        park by a noticeable margin. Nobody minds a dog under the table. And at
+        about seven in the evening, when the lights come on in the branches, the
+        place stops looking like a cafe on a highway.</p>
+
+      <p class="pull">The plant-covered seating area is the reason most people
+        come back — you forget the highway is right there.</p>
+    </div>
+  </section>
+
+  <!-- ══ WHAT YOU GET ═══════════════════════════════════════════════ -->
+  <section class="band reveal">
+    <h2 class="sec-title">What you get when you sit down</h2>
+    <ul class="traits">
+      <li><img class="ph" src="images/canopy.jpeg" alt="Tables under the canopy" decoding="async" loading="lazy"><h3>Open garden seating</h3><p>Tables under a plant canopy, and an air-conditioned room inside for the months when that stops being charming.</p></li>
+      <li><img class="ph" src="images/guests.jpeg" alt="An afternoon table" decoding="async" loading="lazy"><h3>Dogs are welcome</h3><p>Bring them. The garden side is the easy place to sit with a pet, and nobody will look at you strangely.</p></li>
+      <li><img class="ph" src="images/evening.jpeg" alt="Under the lamps" decoding="async" loading="lazy"><h3>Live music nights</h3><p>Acoustic sets under the tree. Ring ahead to find out who is playing this week.</p></li>
+      <li><img class="ph" src="images/music.jpeg" alt="The screen, from the bar" decoding="async" loading="lazy"><h3>Match nights on screen</h3><p>The big games are screened. Come early on a match day — the garden fills before the toss.</p></li>
+      <li><img class="ph" src="images/chocolate-cake.jpeg" alt="Chocolate cake, for the table" decoding="async" loading="lazy"><h3>Kids are fine here</h3><p>Room to move around, food that isn't only for adults, and no glassware within reach of a toddler.</p></li>
+      <li><img class="ph" src="images/fried-chicken.jpeg" alt="Fried chicken and slaw" decoding="async" loading="lazy"><h3>Takeaway &amp; delivery</h3><p>The full kitchen packs to go. Call the cafe directly and skip the delivery-app markup.</p></li>
+    </ul>
+    <p class="note">No alcohol served. Air-conditioned indoors. Roadside parking on the service lane.</p>
+  </section>
+
+  <!-- ══ MENU ═══════════════════════════════════════════════════════
+       Top tabs (Food / Drinks / Sweet) then a course strip underneath.
+       Everything is rendered from the MENU object in script.js.      -->
+  <section class="menu reveal" id="menu">
+    <header class="menu-head">
+      <div>
+        <p class="eyebrow">Kitchen open 10:00 – 22:45</p>
+        <h2 class="sec-title">Menu</h2>
+      </div>
+      <p class="note">
+        <span class="mark mark-v" aria-hidden="true"></span> vegetarian
+        &nbsp; <span class="mark mark-n" aria-hidden="true"></span> non-veg
+        &nbsp;·&nbsp; prices subject to change
+      </p>
+    </header>
+
+    <!-- a look at the food before the list of it -->
+    <ul class="shot-strip">
+      <li><img class="ph ph-wide" src="images/pizza-board.jpeg" alt="Chicken pizza, off the stone" decoding="async" loading="lazy"></li>
+      <li><img class="ph ph-wide" src="images/platter-garden.jpeg" alt="Chilli garlic platter, from the kitchen" decoding="async" loading="lazy"></li>
+      <li><img class="ph ph-wide" src="images/latte-art.jpeg" alt="Two lattes, from the bar" decoding="async" loading="lazy"></li>
+    </ul>
+
+    <div class="tabs" id="menu-tabs" role="tablist" aria-label="Menu sections"></div>
+    <div class="subtabs" id="menu-subtabs"></div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </section>
+
+  <!-- ══ EVENTS ═════════════════════════════════════════════════════ -->
+  <section class="band reveal" id="events">
+    <h2 class="sec-title">What's on, week to week</h2>
+    <ul class="events">
+      <li>
+        <img class="ph" src="images/lights.jpeg" alt="Lights in the branches" decoding="async" loading="lazy">
+        <p class="when mono">Every Friday · 19:30</p>
+        <h3>Acoustic under the tree</h3>
+        <p>A single act, no amps to speak of, in the garden. Comes with the
+          sundowner menu. Tables go first — book if you want the good ones.</p>
+      </li>
+      <li>
+        <img class="ph" src="images/bar-evening.jpeg" alt="The bar at dusk" decoding="async" loading="lazy">
+        <p class="when mono">Match days · from kickoff</p>
+        <h3>Screened in the garden</h3>
+        <p>The big fixtures go up on the outdoor screen. Kitchen runs a
+          shorter, faster menu on those nights so the food keeps up.</p>
+      </li>
+      <li>
+        <img class="ph" src="images/quiet-hours.jpeg" alt="An afternoon table, garden behind" decoding="async" loading="lazy">
+        <p class="when mono">Daily · 16:00 – 19:00</p>
+        <h3>The quiet hours</h3>
+        <p>Between the lunch rush and the evening crowd. The best light of the
+          day comes through the canopy, and you can hear yourself think.</p>
+      </li>
+    </ul>
+    <p class="note">Ring ahead to confirm the week's line-up: <a data-ev="call_click" class="mono" href="tel:+918019409347">+91 80194 09347</a></p>
+  </section>
+
+  <!-- ══ GALLERY ════════════════════════════════════════════════════
+       Click any photo to open the lightbox (arrows, Esc, click-out). -->
+  <section class="band reveal" id="gallery">
+    <h2 class="sec-title">The place</h2>
+    <ul class="gallery" id="gallery-grid">
+      <li><button class="shot" data-cap="Tables under the canopy"><img class="ph" src="images/canopy.jpeg" alt="Canopy seating" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Margherita, straight off the stone"><img class="ph" src="images/pizza.jpeg" alt="Wood-fired pizza" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Afternoon coffee and cake"><img class="ph" src="images/coffee.jpeg" alt="Coffee &amp; cake" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The air-conditioned room inside"><img class="ph" src="images/indoors.jpeg" alt="Indoor room" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Friday, acoustic set in the garden"><img class="ph" src="images/music.jpeg" alt="Live music night" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Fig, ricotta and honey on sourdough"><img class="ph" src="images/fig-toast.jpeg" alt="Fig and ricotta toast" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Breakfast, before the rush"><img class="ph" src="images/breakfast.jpeg" alt="All-day breakfast" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Lights in the branches, about seven"><img class="ph" src="images/lights.jpeg" alt="Evening lights" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Under the pergola once the lamps are on"><img class="ph" src="images/evening.jpeg" alt="Rattan lamps at night" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The bar, lit, at the blue end of the evening"><img class="ph" src="images/bar-evening.jpeg" alt="The bar at dusk" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The garden in the middle of the day"><img class="ph" src="images/garden-day.jpeg" alt="Garden, daytime" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="An afternoon table in the green"><img class="ph" src="images/guests.jpeg" alt="Guests in the garden" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Cappuccino, in the sun"><img class="ph" src="images/cappuccino.jpeg" alt="Cappuccino" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="What's going through the grinder this week"><img class="ph" src="images/beans.jpeg" alt="Beans at the machine" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Off the wok, with slaw"><img class="ph" src="images/noodles.jpeg" alt="Noodles" decoding="async" loading="lazy"></button></li>
+    </ul>
+  </section>
+
+  <!-- ══ REVIEWS ════════════════════════════════════════════════════ -->
+  <section class="reviews reveal" id="reviews">
+    <div class="review-stats">
+      <p class="eyebrow">Rated on Google</p>
+      <h2 class="sec-title sr">What people tend to say</h2>
+      <p class="big mono"><span data-count="4.6" data-dp="1">4.6</span><span class="star">★</span></p>
+      <p class="note">from <span class="mono" data-count="1100" data-suffix="+">1100+</span> ratings —
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad"
+           target="_blank" rel="noopener" data-ev="reviews_click">read them on Google</a></p>
+      <img class="ph" src="images/table-spread.jpeg" alt="A table of starters under the palms" decoding="async" loading="lazy">
+    </div>
+
+    <div class="carousel" id="reviews-carousel">
+      <div class="slides" id="review-slides"></div>
+      <p class="note">The rating above is real. The lines below are
+        our own words for the things people mention most — not quotations.</p>
+      <div class="carousel-foot">
+        <div class="dots" id="review-dots"></div>
+        <div class="arrows">
+          <button class="arrow" data-dir="-1" aria-label="Previous review">←</button>
+          <button class="arrow" data-dir="1" aria-label="Next review">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BOOKING ════════════════════════════════════════════════════
+       No server, no database. Submitting builds a WhatsApp message
+       and opens it in the cafe's chat.                              -->
+  <section class="book reveal" id="book">
+    <div class="book-copy">
+      <p class="eyebrow">Reservations</p>
+      <h2 class="sec-title">Hold a table under the tree.</h2>
+      <p>Fill this in and it opens WhatsApp with your booking already written
+        out. Someone at the cafe replies to confirm — usually within the hour
+        while the kitchen is open.</p>
+      <p class="note">Prefer to call? <a data-ev="call_click" class="mono" href="tel:+918019409347">+91 80194 09347</a></p>
+      <img class="ph ph-wide" src="images/table-empty.jpeg" alt="The table you are booking" decoding="async" loading="lazy">
+    </div>
+
+    <form class="book-form" id="book-form" novalidate>
+      <div class="field">
+        <label for="bk-name">Name</label>
+        <input id="bk-name" name="name" type="text" autocomplete="name" placeholder="Who is the table under?">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="bk-date">Date</label>
+          <input id="bk-date" name="date" type="date">
+        </div>
+
+        <div class="field">
+          <span class="label" id="bk-guests-label">Guests</span>
+          <div class="stepper" role="group" aria-labelledby="bk-guests-label">
+            <button type="button" data-step="-1" aria-label="One fewer guest">−</button>
+            <output class="mono" id="bk-guests">2</output>
+            <button type="button" data-step="1" aria-label="One more guest">+</button>
+          </div>
+        </div>
+      </div>
+
+      <fieldset class="field">
+        <legend>Time</legend>
+        <div class="pills" id="bk-times"></div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Seating</legend>
+        <div class="pills" id="bk-seating">
+          <button type="button" class="pill is-on" aria-pressed="true" data-seat="Garden">Garden</button>
+          <button type="button" class="pill" aria-pressed="false" data-seat="Indoors">Indoors</button>
+        </div>
+      </fieldset>
+
+      <p class="form-error" id="bk-error" role="alert" hidden></p>
+      <button class="btn btn-solid btn-block" type="submit">Send on WhatsApp</button>
+      <p class="note">Nothing is stored on this website. The message goes straight to the cafe.</p>
+    </form>
+  </section>
+
+  <!-- ══ VISIT ══════════════════════════════════════════════════════ -->
+  <section class="visit reveal" id="visit">
+    <div>
+      <h2 class="sec-title">Find us</h2>
+      <address>
+        H.No 2&#8209;66/1, Kandlakoya<br>
+        Opposite KSR Convention, NH&#8209;44<br>
+        Medchal, Kompally<br>
+        Hyderabad 501401
+      </address>
+      <p class="landmark">Coming from the city, it is on the service lane just
+        past KSR Convention — if you reach the Kandlakoya flyover you have gone
+        a few hundred metres too far.</p>
+      <p class="contact mono">
+        <a data-ev="call_click" href="tel:+918019409347">+91 80194 09347</a><br>
+        <a data-ev="instagram_click" href="https://www.instagram.com/otc.kompally/" target="_blank" rel="noopener">@otc.kompally</a>
+      </p>
+      <img class="ph ph-wide" src="images/entrance.jpeg" alt="The sign, off NH-44" decoding="async" loading="lazy">
+
+      <!-- A live Google map in a box: drag, zoom and Street View all
+           work in place. 'View larger map' inside it opens the real
+           thing with directions, which is what the old button did.
+           output=embed needs no API key. loading=lazy keeps Google off
+           the wire until someone scrolls this far down. -->
+      <figure class="map">
+        <iframe
+          title="Map showing Old Tree Cafe, Kandlakoya, Kompally"
+          src="https://maps.google.com/maps?q=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad+501401&amp;z=16&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </figure>
+      <div class="hero-actions">
+        <a class="btn btn-solid" data-ev="whatsapp_click" id="wa-visit" href="#">Message on WhatsApp</a>
+      </div>
+    </div>
+
+    <div>
+      <table class="hours">
+        <caption>Opening hours</caption>
+        <tbody>
+          <tr><th scope="row">Monday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Tuesday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Wednesday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Thursday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Friday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Saturday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Sunday</th><td class="mono">10:00 – 23:00</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Native <details> — an accordion with no JavaScript at all. -->
+      <div class="faq">
+        <h3 class="faq-title">Before you come</h3>
+        <details><summary>Can we bring a dog?</summary><p>Yes, in the garden. Water bowls on request. The indoor room is kept pet-free for people who would rather it was.</p></details>
+        <details><summary>Do we need to book?</summary><p>Not on a weekday afternoon. For Friday and Saturday evenings, and any match night, book — the garden tables go first.</p></details>
+        <details><summary>Is there parking?</summary><p>Roadside on the service lane. It fills up on weekend evenings, so leave a few minutes for it.</p></details>
+        <details><summary>Do you serve alcohol?</summary><p>No. The bar is coffee, tea, coolers and shakes.</p></details>
+        <details><summary>Can you do a large group or a birthday?</summary><p>Yes — call ahead so a section of the garden can be held. Outside cake is fine.</p></details>
+        <details><summary>What is the last order?</summary><p>The kitchen takes its last order at 22:45. The cafe closes at 23:00.</p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div>
+    <p class="brand-mark" aria-hidden="true">OTC</p>
+    <p>Old Tree Cafe · Kandlakoya, Kompally, Hyderabad 501401</p>
+  </div>
+  <nav class="foot-nav" aria-label="Footer">
+    <a href="#story">The tree</a>
+    <a data-ev="menu_view" href="#menu">Menu</a>
+    <a href="#events">Events</a>
+    <a data-ev="book_click" href="#book">Book</a>
+  </nav>
+  <p class="mono">
+    <a data-ev="call_click" href="tel:+918019409347">+91 80194 09347</a> ·
+    <a data-ev="instagram_click" href="https://www.instagram.com/otc.kompally/" target="_blank" rel="noopener">Instagram</a>
+  </p>
+</footer>
+
+<!-- Gallery lightbox. Hidden until a photo is clicked. -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-arrow lb-prev" data-dir="-1" aria-label="Previous photo">←</button>
+  <figure class="lb-stage">
+    <div class="lb-img" id="lb-img"></div>
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+  <button class="lb-arrow lb-next" data-dir="1" aria-label="Next photo">→</button>
+</div>
+
+<script>
+/* ===========================================================
+   Old Tree Cafe — everything the page does.
+
+   Contents
+     1.  CAFE      the cafe's details — edit these, not the HTML
+     2.  MENU      the whole menu, as one editable list
+     3.  REVIEWS   guest quotes for the carousel
+     4.  clock     open/closed pill, time-of-day, today's row
+     5.  canopy    the interactive leaves and light behind the hero
+     6.  chrome    mobile nav, sticky header, scroll-spy
+     7.  reveal    sections fading in, numbers counting up
+     8.  menu      tabs, course filter, rendering
+     9.  lightbox  the fullscreen gallery
+     10. carousel  the reviews slider
+     11. booking   the form that writes a WhatsApp message
+     12. selftest  add ?selftest to the address to run the checks
+     13. splash    the OTC letters over the splash photo
+     14. events    one listener behind every data-ev hook
+
+   No libraries. Everything here is built into the browser.
+   =========================================================== */
+
+document.documentElement.classList.add('js');
+
+/* Pick one out of a row of buttons. .is-on carries the look;
+   aria-pressed carries the same fact to a screen reader, which
+   otherwise hears no difference between chosen and not. */
+function selectOne(buttons, chosen) {
+  buttons.forEach(b => {
+    const on = b === chosen;
+    b.classList.toggle('is-on', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
+/* ── 1. CAFE ─────────────────────────────────────────────── */
+
+const CAFE = {
+  phone: '918019409347',        // country code + number, digits only
+  openMinute: 10 * 60,          // 10:00
+  closeMinute: 23 * 60,         // 23:00
+  timeZone: 'Asia/Kolkata',
+  firstSlot: 11,                // earliest bookable hour
+  lastSlot: 22                  // latest bookable hour
+};
+
+/* ── 2. MENU ─────────────────────────────────────────────────
+   Shape:  Tab → Course → [ dish, price, 'v' or 'n', 'pick'? ]
+     'v'     vegetarian        'n'  non-vegetarian
+     'pick'  optional 4th item, shows the small outlined badge
+
+   TODO (Aditya): only the five teas are real prices, taken from
+   the cafe's live delivery listing. Photograph their menu card
+   and retype the rest before showing this to the owner.        */
+
+const MENU = {
+  Food: {
+    'All-day breakfast': [
+      ['Big Tree breakfast — eggs, sausage, hash, toast', 385, 'n', 'pick'],
+      ['Shakshuka with sourdough', 340, 'v'],
+      ['Banana pancake stack, maple butter', 295, 'v'],
+      ['Avocado toast, chilli and lime', 320, 'v'],
+      ['Masala omelette and buttered toast', 210, 'v'],
+      ['Akuri on toast', 260, 'v'],
+      ['Granola, curd and honey', 240, 'v']
+    ],
+    'From the garden': [
+      ['Greek salad, feta and olives', 330, 'v'],
+      ['Caesar salad', 320, 'v'],
+      ['Caesar salad with grilled chicken', 390, 'n'],
+      ['Roast pumpkin and quinoa bowl', 360, 'v', 'pick'],
+      ['Garden soup of the day', 220, 'v']
+    ],
+    'Wood-fired pizza': [
+      ['Margherita', 380, 'v'],
+      ['Farmhouse — mushroom, olive, capsicum', 450, 'v'],
+      ['Four cheese', 520, 'v', 'pick'],
+      ['Peri peri chicken', 490, 'n'],
+      ['Chicken tikka', 490, 'n'],
+      ['Pepperoni', 540, 'n']
+    ],
+    'Burgers & sandwiches': [
+      ['Old Tree veg burger', 320, 'v'],
+      ['Crispy chicken burger', 390, 'n', 'pick'],
+      ['Grilled club sandwich', 300, 'v'],
+      ['Chicken club sandwich', 350, 'n'],
+      ['Paneer tikka panini', 310, 'v']
+    ],
+    'Pasta & mains': [
+      ['Penne arrabbiata', 380, 'v'],
+      ['Alfredo, veg', 400, 'v'],
+      ['Alfredo, chicken', 460, 'n'],
+      ['Mushroom risotto', 440, 'v'],
+      ['Grilled chicken, herb butter, greens', 520, 'n', 'pick'],
+      ['Lasagne al forno', 480, 'v']
+    ],
+    'Small plates': [
+      ['Peri peri fries', 200, 'v'],
+      ['Garlic bread with cheese', 240, 'v'],
+      ['Chilli paneer, dry', 320, 'v'],
+      ['Chicken wings, six', 360, 'n', 'pick'],
+      ['Nachos with salsa and cheese', 300, 'v'],
+      ['Crispy corn', 280, 'v']
+    ]
+  },
+
+  Drinks: {
+    'Tea': [
+      ['English breakfast black tea', 144, 'v'],
+      ['Lemongrass ginger black tea', 150, 'v', 'pick'],
+      ['Lemon and honey tea', 150, 'v'],
+      ['Immunity booster herbal tea', 150, 'v'],
+      ['Ginger mint lemon tea', 150, 'v'],
+      ['Masala chai', 120, 'v']
+    ],
+    'Coffee': [
+      ['Espresso', 140, 'v'],
+      ['Cappuccino', 180, 'v'],
+      ['Flat white', 190, 'v'],
+      ['Cafe latte', 190, 'v'],
+      ['Cold coffee', 220, 'v', 'pick'],
+      ['Affogato', 260, 'v']
+    ],
+    'Coolers & shakes': [
+      ['Fresh lime soda', 140, 'v'],
+      ['Virgin mojito', 200, 'v'],
+      ['Green apple cooler', 220, 'v'],
+      ['Cold chocolate shake', 260, 'v'],
+      ['Oreo shake', 270, 'v'],
+      ['Seasonal fruit smoothie', 250, 'v']
+    ]
+  },
+
+  Sweet: {
+    'Desserts': [
+      ['Molten chocolate cake', 280, 'v', 'pick'],
+      ['Tiramisu', 300, 'v'],
+      ['Cheesecake of the day', 290, 'v'],
+      ['Brownie with vanilla ice cream', 270, 'v'],
+      ['Banoffee pie', 290, 'v'],
+      ['Ice cream, two scoops', 180, 'v']
+    ]
+  }
+};
+
+/* ── 3. REVIEWS ──────────────────────────────────────────────
+   NOT quotations. Every line below is our own wording, written
+   to match the themes that recur in the cafe's Google reviews —
+   the garden, the evening lights, the desserts, the dogs.
+
+   Nothing on the page claims otherwise, and it must stay that
+   way. The heading reads "what people tend to say", the note
+   under it says the wording is ours, and `who` names the theme,
+   never a reviewer. The one hard number on the page — 4.6 from
+   1,100+ ratings — is real and is linked to Google.
+
+   To switch to real reviews: paste the verbatim text into
+   `quote`, put the reviewer's display name in `who`, and change
+   the heading and note in index.html to match.               */
+
+const REVIEWS = [
+  { stars: 5, quote: 'The plant-covered seating area is the point. You forget the highway is right there.', who: 'On the garden' },
+  { stars: 5, quote: 'Come for a coffee, stay three hours. The garden in the evening, once the lights are on, is what brings people back.', who: 'On the evenings' },
+  { stars: 4, quote: 'Desserts are the strong suit, and the staff are patient with a large group.', who: 'On the food' },
+  { stars: 5, quote: 'One of the few places around Kompally where nobody minds you bringing the dog.', who: 'On bringing a dog' },
+  { stars: 4, quote: 'Quiet on a weekday afternoon. Busy on a Friday night, when there is music.', who: 'On when to come' }
+];
+
+/* ── 4. clock ────────────────────────────────────────────────
+   Everything here reads the time in Hyderabad, not on the
+   visitor's device, so it stays right for someone browsing
+   from another country.                                       */
+
+function istParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: CAFE.timeZone,
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23', weekday: 'long'
+  }).formatToParts(date);
+  const find = type => parts.find(p => p.type === type).value;
+  return {
+    minutes: Number(find('hour')) * 60 + Number(find('minute')),
+    weekday: find('weekday')
+  };
+}
+
+function isOpenAt(minute) {
+  return minute >= CAFE.openMinute && minute < CAFE.closeMinute;
+}
+
+/* which light the hero is painted in */
+function phaseFor(minute) {
+  if (minute < 6 * 60 || minute >= 20 * 60) return 'night';
+  if (minute >= 18 * 60 + 30) return 'dusk';
+  if (minute >= 15 * 60) return 'golden';
+  return 'morning';
+}
+
+function initClock() {
+  const { minutes, weekday } = istParts();
+
+  document.documentElement.dataset.phase = phaseFor(minutes);
+
+  const pill = document.getElementById('status');
+  if (pill) {
+    const open = isOpenAt(minutes);
+    pill.hidden = false;
+    pill.dataset.open = open ? 'yes' : 'no';
+    pill.textContent = open ? 'Open now · closes 11:00 PM' : 'Closed · opens 10:00 AM';
+  }
+
+  document.querySelectorAll('.hours tbody tr').forEach(row => {
+    if (row.querySelector('th').textContent.trim() === weekday) row.classList.add('is-today');
+  });
+}
+
+/* ── 5. canopy ───────────────────────────────────────────────
+   The hero background, on one canvas, in three layers:
+
+     light   soft blobs drifting the way sun moves through leaves.
+             Their colour comes from the --wash-* variables in
+             styles.css, which change with the hour in Hyderabad.
+     glow    a warm pool that follows the pointer, like a lamp
+             carried under the tree.
+     leaves  they fall slowly, and scatter away from the pointer.
+             Move the mouse quickly and they get pushed along with
+             it, then settle back into the drift.
+
+   All of it stops for anyone who has "reduce motion" switched on,
+   and the loop pauses whenever the hero is scrolled out of view.  */
+
+function initCanopy() {
+  const canvas = document.getElementById('dapple');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const blobs = [];
+  const leaves = [];
+  let width = 0, height = 0, frame = 0, running = true;
+
+  // Pointer: where it is, how fast it is moving, and how present it
+  // is. `near` fades the whole interaction in and out so that
+  // nothing snaps when the cursor arrives or leaves.
+  const pointer = { x: -999, y: -999, gx: -999, gy: -999, vx: 0, vy: 0, near: 0 };
+  const REACH = 190;          // how far the push carries, in pixels
+
+  function readColour(name, fallback) {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return /^#[0-9a-f]{6}$/i.test(v) ? v : fallback;
+  }
+
+  function rgba(hex, alpha) {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${n >> 16 & 255}, ${n >> 8 & 255}, ${n & 255}, ${alpha})`;
+  }
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = rect.width;
+    height = rect.height;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function seed() {
+    const small = width < 700;
+
+    blobs.length = 0;
+    for (let i = 0; i < (small ? 7 : 12); i++) {
+      blobs.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: 80 + Math.random() * 220,
+        vx: (Math.random() - 0.5) * 0.16,   // about a pixel a second
+        vy: (Math.random() - 0.5) * 0.10,
+        warm: Math.random() > 0.45
+      });
+    }
+
+    leaves.length = 0;
+    for (let i = 0; i < (small ? 18 : 34); i++) {
+      leaves.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: 9 + Math.random() * 16,
+        rot: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.006,
+        vx: 0,
+        vy: 0,
+        fall: 0.10 + Math.random() * 0.16,   // its own drift downwards
+        sway: 0.4 + Math.random() * 0.7,     // how wide it swings
+        phase: Math.random() * Math.PI * 2,
+        pale: Math.random() > 0.6
+      });
+    }
+  }
+
+  /* One leaf, drawn at the origin — two curves and a midrib. */
+  function leafPath(size) {
+    ctx.beginPath();
+    ctx.moveTo(0, -size);
+    ctx.quadraticCurveTo(size * 0.72, -size * 0.12, 0, size);
+    ctx.quadraticCurveTo(-size * 0.72, -size * 0.12, 0, -size);
+    ctx.closePath();
+  }
+
+  function draw() {
+    const warm = readColour('--wash-a', '#7FB05A');
+    const cool = readColour('--wash-b', '#CFE0A8');
+    const leafColour = readColour('--leaf', '#47732C');
+    const strength = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--wash-strength')) || 0.2;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // light
+    for (const blob of blobs) {
+      const colour = blob.warm ? warm : cool;
+      const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.r);
+      grad.addColorStop(0, rgba(colour, strength));
+      grad.addColorStop(1, rgba(colour, 0));
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(blob.x, blob.y, blob.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // the pool of light under the pointer
+    if (pointer.near > 0.01) {
+      const r = REACH * 1.5;
+      const grad = ctx.createRadialGradient(pointer.gx, pointer.gy, 0, pointer.gx, pointer.gy, r);
+      grad.addColorStop(0, rgba(warm, strength * 0.9 * pointer.near));
+      grad.addColorStop(1, rgba(warm, 0));
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(pointer.gx, pointer.gy, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // leaves
+    for (const leaf of leaves) {
+      const colour = leaf.pale ? cool : leafColour;
+      ctx.save();
+      ctx.translate(leaf.x, leaf.y);
+      ctx.rotate(leaf.rot);
+      ctx.fillStyle = rgba(colour, leaf.pale ? 0.18 : 0.24);
+      leafPath(leaf.size);
+      ctx.fill();
+      ctx.strokeStyle = rgba(colour, 0.28);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, -leaf.size);
+      ctx.lineTo(0, leaf.size);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function wrap(item, edge) {
+    if (item.x < -edge) item.x = width + edge;
+    if (item.x > width + edge) item.x = -edge;
+    if (item.y < -edge) item.y = height + edge;
+    if (item.y > height + edge) item.y = -edge;
+  }
+
+  function step() {
+    frame++;
+
+    for (const blob of blobs) {
+      blob.x += blob.vx;
+      blob.y += blob.vy;
+      wrap(blob, blob.r);
+    }
+
+    // The pointer speed decays, so a flick pushes the leaves and then
+    // stops pushing. The glow lags a few frames behind the cursor.
+    pointer.vx *= 0.88;
+    pointer.vy *= 0.88;
+    pointer.gx += (pointer.x - pointer.gx) * 0.12;
+    pointer.gy += (pointer.y - pointer.gy) * 0.12;
+
+    for (const leaf of leaves) {
+      const dx = leaf.x - pointer.x;
+      const dy = leaf.y - pointer.y;
+      const dist = Math.hypot(dx, dy);
+
+      if (pointer.near > 0.01 && dist < REACH && dist > 0.5) {
+        const force = (1 - dist / REACH) * pointer.near;
+        leaf.vx += (dx / dist) * force * 0.55 + pointer.vx * force * 0.05;
+        leaf.vy += (dy / dist) * force * 0.55 + pointer.vy * force * 0.05;
+        leaf.spin += (dx > 0 ? 1 : -1) * force * 0.0016;
+      }
+
+      // settle back towards the resting drift
+      leaf.vx *= 0.93;
+      leaf.vy *= 0.93;
+      leaf.spin *= 0.985;
+
+      leaf.x += leaf.vx + Math.sin(frame * 0.006 + leaf.phase) * leaf.sway * 0.4;
+      leaf.y += leaf.vy + leaf.fall;
+      leaf.rot += leaf.spin + 0.0008;
+      wrap(leaf, leaf.size * 2);
+    }
+
+    draw();
+    if (running) requestAnimationFrame(step);
+  }
+
+  resize();
+  seed();
+
+  if (still) { draw(); return; }
+
+  // The canvas is pinned to the viewport, so a pointer position in
+  // page coordinates is already a position on the canvas — no need
+  // to measure anything on every mouse move.
+  document.addEventListener('pointermove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+    if (pointer.near === 0) { pointer.gx = x; pointer.gy = y; }  // no swoop in
+    pointer.vx += (x - pointer.x) * 0.5;
+    pointer.vy += (y - pointer.y) * 0.5;
+    pointer.x = x;
+    pointer.y = y;
+    pointer.near = 1;
+  }, { passive: true });
+
+  document.documentElement.addEventListener('pointerleave', () => {
+    pointer.near = 0;
+    pointer.x = pointer.y = -999;
+  });
+
+  // Stop the loop when the tab is in the background. An animation
+  // nobody is looking at is what drains a phone battery.
+  document.addEventListener('visibilitychange', () => {
+    const visible = !document.hidden;
+    if (visible && !running) { running = true; requestAnimationFrame(step); }
+    running = visible;
+  });
+
+  requestAnimationFrame(step);
+
+  // On a phone, scrolling collapses the address bar and fires resize.
+  // Re-seeding there would re-scatter every leaf mid-scroll, so only
+  // a real change of width starts the canopy over.
+  let timer;
+  let lastWidth = width;
+  addEventListener('resize', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const changed = Math.abs(canvas.getBoundingClientRect().width - lastWidth) > 1;
+      resize();
+      if (changed) { seed(); lastWidth = width; }
+    }, 200);
+  });
+}
+
+/* ── 6. chrome ───────────────────────────────────────────────
+   Mobile nav, the hairline that appears under the header once
+   you scroll, and the nav link that marks where you are.      */
+
+function initChrome() {
+  const head = document.getElementById('head');
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('nav-toggle');
+  if (!head || !nav || !toggle) return;
+
+  const links = [...nav.querySelectorAll('a')];
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  nav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') {
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  let queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      head.classList.toggle('is-stuck', scrollY > 8);
+
+      // the section whose top has most recently passed the header
+      const line = scrollY + head.offsetHeight + 24;
+      let current = null;
+      for (const section of sections) {
+        if (section.offsetTop <= line) current = section;
+      }
+      links.forEach(a => {
+        a.classList.toggle('is-here', current && a.getAttribute('href') === '#' + current.id);
+      });
+    });
+  }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+/* ── 7. reveal ───────────────────────────────────────────────
+   Sections lift into place as they come into view, and any
+   number marked data-count runs up to its value once.         */
+
+function initReveal() {
+  const targets = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(t => t.classList.add('is-in'));
+    document.querySelectorAll('[data-count]').forEach(countUp);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, self) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-in');
+      entry.target.querySelectorAll('[data-count]').forEach(countUp);
+      self.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px -12% 0px' });
+
+  targets.forEach(t => observer.observe(t));
+  // The hero is above the fold, so its numbers run straight away.
+  document.querySelectorAll('.hero [data-count]').forEach(countUp);
+}
+
+function countUp(el) {
+  if (el.dataset.counted) return;
+  el.dataset.counted = '1';
+
+  const target = parseFloat(el.dataset.count);
+  const dp = Number(el.dataset.dp || 0);
+  const suffix = el.dataset.suffix || '';
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const start = performance.now();
+  const duration = 900;
+
+  function frame(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = (target * eased).toFixed(dp) + (t === 1 ? suffix : '');
+    if (t < 1) requestAnimationFrame(frame);
+  }
+  el.textContent = (0).toFixed(dp);
+  requestAnimationFrame(frame);
+}
+
+/* ── 8. menu ─────────────────────────────────────────────── */
+
+function initMenu() {
+  const tabBar = document.getElementById('menu-tabs');
+  const subBar = document.getElementById('menu-subtabs');
+  const grid = document.getElementById('menu-grid');
+  if (!tabBar) return;
+
+  const tabs = Object.keys(MENU);
+  let activeTab = tabs[0];
+  let activeCourse = 'Everything';
+
+  function dishRow([name, price, kind, badge]) {
+    return `<li>
+      <span class="mark mark-${kind}" aria-label="${kind === 'v' ? 'vegetarian' : 'non-vegetarian'}"></span>
+      <span class="dish">${name}</span>
+      ${badge ? '<span class="pick">Pick</span>' : ''}
+      <span class="price">₹${price}</span>
+    </li>`;
+  }
+
+  // Veg above, non-veg below. filter() keeps the order each dish is
+  // written in, so the MENU list stays the one place you edit. The
+  // heading only appears where a course actually holds both — on an
+  // all-veg course it would be labelling the obvious.
+  const group = (label, items) =>
+    `<h4 class="course-group">${label}</h4><ul>${items.map(dishRow).join('')}</ul>`;
+
+  function courseList(list) {
+    const veg = list.filter(d => d[2] === 'v');
+    const non = list.filter(d => d[2] === 'n');
+    return veg.length && non.length
+      ? group('Vegetarian', veg) + group('Non-vegetarian', non)
+      : `<ul>${list.map(dishRow).join('')}</ul>`;
+  }
+
+  function paint() {
+    const courses = MENU[activeTab];
+    const showing = activeCourse === 'Everything'
+      ? Object.keys(courses)
+      : [activeCourse];
+
+    grid.classList.add('is-swapping');
+    setTimeout(() => {
+      grid.innerHTML = showing.map(course => `
+        <div class="course">
+          <h3>${course}</h3>
+          ${courseList(courses[course])}
+        </div>`).join('');
+      grid.classList.remove('is-swapping');
+    }, 180);
+  }
+
+  function paintSubtabs() {
+    const names = ['Everything', ...Object.keys(MENU[activeTab])];
+    subBar.innerHTML = names
+      .map(n => `<button type="button" aria-pressed="${n === activeCourse}"${n === activeCourse ? ' class="is-on"' : ''}>${n}</button>`)
+      .join('');
+  }
+
+  tabBar.innerHTML = tabs
+    .map(t => `<button type="button" role="tab" aria-selected="${t === activeTab}">${t}</button>`)
+    .join('');
+
+  tabBar.addEventListener('click', e => {
+    const button = e.target.closest('button');
+    if (!button || button.textContent === activeTab) return;
+    activeTab = button.textContent;
+    activeCourse = 'Everything';
+    tabBar.querySelectorAll('button').forEach(b =>
+      b.setAttribute('aria-selected', String(b === button)));
+    paintSubtabs();
+    paint();
+  });
+
+  subBar.addEventListener('click', e => {
+    const button = e.target.closest('button');
+    if (!button) return;
+    activeCourse = button.textContent;
+    selectOne(subBar.querySelectorAll('button'), button);
+    paint();
+  });
+
+  paintSubtabs();
+  paint();
+}
+
+/* ── 9. lightbox ─────────────────────────────────────────── */
+
+function initLightbox() {
+  const box = document.getElementById('lightbox');
+  const stage = document.getElementById('lb-img');
+  const caption = document.getElementById('lb-cap');
+  const grid = document.getElementById('gallery-grid');
+  if (!box || !grid) return;
+
+  const shots = [...grid.querySelectorAll('.shot')];
+
+  // The button's only content is the photo, so with no photo on disk
+  // it has no name at all. The caption is the name either way.
+  shots.forEach(s => s.setAttribute('aria-label', s.dataset.cap));
+
+  let index = 0;
+  let opener = null;
+
+  function show(i) {
+    index = (i + shots.length) % shots.length;
+    const shot = shots[index];
+    const img = shot.querySelector('img');
+    // Works with the placeholders now, and with real photos later.
+    stage.innerHTML = img ? `<img src="${img.src}" alt="${img.alt}">` : '';
+    stage.style.animation = 'none';
+    void stage.offsetWidth;          // restart the pop-in
+    stage.style.animation = '';
+    caption.textContent = shot.dataset.cap || '';
+  }
+
+  function open(i, from) {
+    opener = from;
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    show(i);
+    document.getElementById('lb-close').focus();
+  }
+
+  function close() {
+    box.hidden = true;
+    document.body.style.overflow = '';
+    if (opener) opener.focus();
+  }
+
+  shots.forEach((shot, i) => shot.addEventListener('click', () => open(i, shot)));
+
+  box.addEventListener('click', e => {
+    const arrow = e.target.closest('[data-dir]');
+    if (arrow) { show(index + Number(arrow.dataset.dir)); return; }
+    if (e.target.closest('#lb-close') || e.target === box) close();
+  });
+
+  addEventListener('keydown', e => {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') show(index + 1);
+    if (e.key === 'ArrowLeft') show(index - 1);
+  });
+}
+
+/* ── 10. carousel ────────────────────────────────────────── */
+
+function initCarousel() {
+  const wrap = document.getElementById('reviews-carousel');
+  const track = document.getElementById('review-slides');
+  const dots = document.getElementById('review-dots');
+  if (!track) return;
+
+  track.innerHTML = REVIEWS.map((r, i) => `
+    <div class="slide${i === 0 ? ' is-on' : ''}">
+      <blockquote>
+        <p class="stars" aria-label="${r.stars} out of 5">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</p>
+        <p class="quote">${r.quote}</p>
+        <p class="who">${r.who}</p>
+      </blockquote>
+    </div>`).join('');
+
+  dots.innerHTML = REVIEWS.map((_, i) =>
+    `<button type="button"${i === 0 ? ' class="is-on"' : ''} aria-label="Review ${i + 1}"></button>`).join('');
+
+  const slides = [...track.children];
+  const bullets = [...dots.children];
+  let at = 0;
+  let timer;
+
+  function go(i) {
+    at = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => s.classList.toggle('is-on', n === at));
+    bullets.forEach((b, n) => b.classList.toggle('is-on', n === at));
+  }
+
+  function play() { timer = setInterval(() => go(at + 1), 6000); }
+  function pause() { clearInterval(timer); }
+
+  wrap.addEventListener('click', e => {
+    const arrow = e.target.closest('.arrow');
+    if (arrow) { pause(); go(at + Number(arrow.dataset.dir)); play(); return; }
+    const dot = e.target.closest('.dots button');
+    if (dot) { pause(); go(bullets.indexOf(dot)); play(); }
+  });
+
+  wrap.addEventListener('mouseenter', pause);
+  wrap.addEventListener('mouseleave', play);
+  wrap.addEventListener('focusin', pause);
+  play();
+}
+
+/* ── 11. booking ─────────────────────────────────────────────
+   No server and no database. The form builds a message and
+   hands it to WhatsApp, where the cafe already is all day.    */
+
+function formatTime(hour) {
+  const suffix = hour >= 12 ? 'PM' : 'AM';
+  const h = hour % 12 === 0 ? 12 : hour % 12;
+  return `${h}:00 ${suffix}`;
+}
+
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatDate(value) {
+  // value is yyyy-mm-dd from the date input.
+  // Spelled out by hand for two reasons: the date never shifts by a
+  // day across time zones, and the message reads the same whatever
+  // language the customer's phone is set to. toLocaleDateString
+  // writes "12 Sept 2026" on some devices and "Sep 12" on others.
+  const [y, m, d] = value.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  return `${DAY_NAMES[date.getDay()]}, ${d} ${MONTH_NAMES[m - 1]} ${y}`;
+}
+
+function buildBookingMessage({ name, date, time, guests, seating }) {
+  return [
+    'Hi Old Tree Cafe, I would like to book a table.',
+    '',
+    `Name: ${name}`,
+    `Date: ${formatDate(date)}`,
+    `Time: ${time}`,
+    `Guests: ${guests}`,
+    `Seating: ${seating}`
+  ].join('\n');
+}
+
+function whatsappLink(message) {
+  return `https://wa.me/${CAFE.phone}?text=${encodeURIComponent(message)}`;
+}
+
+function initBooking() {
+  const form = document.getElementById('book-form');
+  if (!form) return;
+
+  const dateInput = document.getElementById('bk-date');
+  const nameInput = document.getElementById('bk-name');
+  const guestsOut = document.getElementById('bk-guests');
+  const timeBar = document.getElementById('bk-times');
+  const seatBar = document.getElementById('bk-seating');
+  const error = document.getElementById('bk-error');
+
+  let guests = 2;
+  let time = '';
+  let seating = 'Garden';
+
+  // Do not let anyone book yesterday.
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: CAFE.timeZone }).format(new Date());
+  dateInput.min = today;
+  dateInput.value = today;
+
+  timeBar.innerHTML = '';
+  for (let h = CAFE.firstSlot; h <= CAFE.lastSlot; h++) {
+    const label = formatTime(h);
+    timeBar.insertAdjacentHTML('beforeend',
+      `<button type="button" class="pill" aria-pressed="false" data-time="${label}">${label}</button>`);
+  }
+
+  form.querySelector('.stepper').addEventListener('click', e => {
+    const button = e.target.closest('[data-step]');
+    if (!button) return;
+    guests = Math.min(20, Math.max(1, guests + Number(button.dataset.step)));
+    guestsOut.textContent = String(guests);
+  });
+
+  timeBar.addEventListener('click', e => {
+    const pill = e.target.closest('.pill');
+    if (!pill) return;
+    time = pill.dataset.time;
+    selectOne(timeBar.querySelectorAll('.pill'), pill);
+    error.hidden = true;
+  });
+
+  seatBar.addEventListener('click', e => {
+    const pill = e.target.closest('.pill');
+    if (!pill) return;
+    seating = pill.dataset.seat;
+    selectOne(seatBar.querySelectorAll('.pill'), pill);
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+
+    if (!name) return fail('Add a name so the cafe knows who the table is for.', nameInput);
+    if (!dateInput.value) return fail('Pick a date.', dateInput);
+    if (!time) return fail('Pick a time.', timeBar.querySelector('.pill'));
+
+    error.hidden = true;
+    const message = buildBookingMessage({
+      name, date: dateInput.value, time, guests, seating
+    });
+    track('booking_submit');
+    window.open(whatsappLink(message), '_blank', 'noopener');
+  });
+
+  function fail(text, focusOn) {
+    error.textContent = text;
+    error.hidden = false;
+    if (focusOn) focusOn.focus();
+  }
+}
+
+/* ── 13. splash ──────────────────────────────────────────────
+   The pointer nudges the splash photo behind the glass.
+   Two custom properties running -1 to 1, and the CSS does all
+   the moving. Nothing to clean up, nothing to throttle — the
+   transition smooths it — and a touch screen never fires
+   pointermove, so phones get a still frame for free.         */
+
+const axis = (v, min, size) => (v - min) / size * 2 - 1;
+
+function initSplash() {
+  const splash = document.getElementById('splash');
+  if (!splash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  splash.addEventListener('pointermove', e => {
+    const r = splash.getBoundingClientRect();
+    splash.style.setProperty('--px', axis(e.clientX, r.left, r.width).toFixed(3));
+    splash.style.setProperty('--py', axis(e.clientY, r.top, r.height).toFixed(3));
+  });
+
+  splash.addEventListener('pointerleave', () => {
+    splash.style.setProperty('--px', 0);
+    splash.style.setProperty('--py', 0);
+  });
+}
+
+/* ── 14. events ──────────────────────────────────────────────
+   No analytics vendor is wired up yet, on purpose. Every control
+   worth counting carries data-ev in index.html, and this one
+   listener catches all of them — clicks bubble, so it does not
+   care when a button was added or whether script.js built it.
+
+   To switch analytics on, uncomment one line in track(). That is
+   the entire integration; nothing else on the page changes.
+
+   Not trackable from here: directions. The map is a Google iframe
+   and a cross-origin frame will not report its own clicks. Use
+   the Google Business Profile dashboard for that number.       */
+
+function track(name) {
+  // Plausible / Umami:  window.plausible?.(name);
+  // Google Analytics 4: window.gtag?.('event', name);
+  void name;
+}
+
+addEventListener('click', e => {
+  const hit = e.target.closest('[data-ev]');
+  if (hit) track(hit.dataset.ev);
+});
+
+/* ── run everything ──────────────────────────────────────── */
+
+initClock();
+initCanopy();
+initChrome();
+initReveal();
+initMenu();
+initLightbox();
+initCarousel();
+initBooking();
+initSplash();
+
+const visitLink = document.getElementById('wa-visit');
+if (visitLink) {
+  visitLink.href = whatsappLink('Hi Old Tree Cafe, I have a question.');
+  visitLink.target = '_blank';
+  visitLink.rel = 'noopener';
+}
+
+/* ── 12. selftest ────────────────────────────────────────────
+   Open the page with ?selftest on the end of the address, then
+   press F12 → Console. Anything wrong prints as a failure.    */
+
+if (location.search.includes('selftest')) {
+  const checks = [];
+  const ok = (label, actual, expected) => checks.push([label, actual === expected, actual, expected]);
+
+  // opening hours, at the edges where bugs hide
+  ok('09:59 is closed', isOpenAt(9 * 60 + 59), false);
+  ok('10:00 is open', isOpenAt(10 * 60), true);
+  ok('22:59 is open', isOpenAt(22 * 60 + 59), true);
+  ok('23:00 is closed', isOpenAt(23 * 60), false);
+  ok('02:00 is closed', isOpenAt(2 * 60), false);
+
+  // which light the hero is painted in
+  ok('11:00 is morning', phaseFor(11 * 60), 'morning');
+  ok('16:00 is golden', phaseFor(16 * 60), 'golden');
+  ok('19:00 is dusk', phaseFor(19 * 60), 'dusk');
+  ok('21:00 is night', phaseFor(21 * 60), 'night');
+  ok('03:00 is night', phaseFor(3 * 60), 'night');
+
+  // times and dates come out readable
+  ok('11 reads as 11:00 AM', formatTime(11), '11:00 AM');
+  ok('12 reads as 12:00 PM', formatTime(12), '12:00 PM');
+  ok('22 reads as 10:00 PM', formatTime(22), '10:00 PM');
+  ok('date does not shift a day', formatDate('2026-09-12').includes('12 Sep 2026'), true);
+  ok('date names the weekday', formatDate('2026-09-12').startsWith('Sat'), true);
+
+  // the booking message carries every field
+  const sample = buildBookingMessage({
+    name: 'Aditya', date: '2026-09-12', time: '7:00 PM', guests: 4, seating: 'Garden'
+  });
+  ok('message has the name', sample.includes('Name: Aditya'), true);
+  ok('message has the date', sample.includes('12 Sep 2026'), true);
+  ok('message has the guests', sample.includes('Guests: 4'), true);
+  ok('link is encoded', whatsappLink('a b').endsWith('a%20b'), true);
+
+  // the splash pointer mapping — centre is 0, edges are -1 and 1
+  ok('splash axis centres at 0', axis(50, 0, 100), 0);
+  ok('splash axis is -1 at the left edge', axis(0, 0, 100), -1);
+  ok('splash axis is 1 at the right edge', axis(100, 0, 100), 1);
+  ok('splash axis ignores where the section sits', axis(700, 600, 100), 1);
+
+  const failed = checks.filter(c => !c[1]);
+  failed.forEach(([label, , actual, expected]) =>
+    console.error(`FAILED — ${label}: got ${JSON.stringify(actual)}, expected ${JSON.stringify(expected)}`));
+  console.log(`selftest: ${checks.length} checks, ${failed.length} failed`);
+}
+</script>
+</body>
+</html>

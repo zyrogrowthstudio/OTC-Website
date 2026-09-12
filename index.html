@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Old Tree Cafe — Garden Cafe, Kompally Hyderabad</title>
+<meta name="description" content="OTC — Old Tree Cafe, an open garden cafe at Kandlakoya, Kompally, Hyderabad. Wood-fired pizza, all-day breakfast and a long tea list, 10am to 11pm daily.">
+
+<link rel="canonical" href="https://oldtreecafe.com/">
+<meta name="theme-color" content="#2F5138">
+
+<!-- Social preview: what shows when the link is pasted into WhatsApp,
+     Instagram or X. og:image has to be an absolute URL — a relative one
+     is silently ignored by every scraper. 1200x630 is the size they all
+     crop to; anything else gets letterboxed. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://oldtreecafe.com/">
+<meta property="og:site_name" content="Old Tree Cafe">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Old Tree Cafe — Kompally, Hyderabad">
+<meta property="og:description" content="An open garden cafe on NH-44 at Kandlakoya. Tables under the canopy, 10am–11pm, every day.">
+<meta property="og:image" content="https://oldtreecafe.com/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The garden at Old Tree Cafe, tables under the canopy">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Cormorant+Garamond:wght@500;600;700&family=Petrona:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="code/styles.css">
+
+<!-- Structured data. This is what tells Google the page is a place and
+     not an article: the address, the hours and the phone, in the shape
+     Google reads. Test it at search.google.com/test/rich-results.
+
+     Deliberately NO aggregateRating. Marking up your own Google score
+     on your own site is self-serving review markup — Google ignores it
+     for local businesses and can penalise the page. The 4.6 stays as
+     visible text with a link to the real listing, which is allowed.
+
+     TODO (Aditya): telephone below is the number already on the site.
+     Public listings show two others (+91 87900 46493, +91 90003 02213)
+     and closing time is listed as both 22:00 and 23:00. Confirm both
+     with the cafe, then fix them HERE, in the hours table, in the
+     footer and in CAFE.phone in script.js — all four must agree. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "@id": "https://oldtreecafe.com/#restaurant",
+  "name": "Old Tree Cafe",
+  "alternateName": "OTC",
+  "url": "https://oldtreecafe.com/",
+  "image": "https://oldtreecafe.com/images/og.jpg",
+  "logo": "https://oldtreecafe.com/images/logo.jpeg",
+  "telephone": "+918019409347",
+  "priceRange": "₹₹",
+  "servesCuisine": ["Continental", "Italian", "Coffee", "Desserts"],
+  "menu": "https://oldtreecafe.com/#menu",
+  "acceptsReservations": true,
+  "publicAccess": true,
+  "smokingAllowed": false,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "H.No 2-66/1, Kandlakoya, opposite KSR Convention, NH-44",
+    "addressLocality": "Kompally",
+    "addressRegion": "Telangana",
+    "postalCode": "501401",
+    "addressCountry": "IN"
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad",
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "10:00",
+    "closes": "23:00"
+  }],
+  "sameAs": [
+    "https://www.instagram.com/otc.kompally/",
+    "https://www.facebook.com/OTC.kompally/"
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The canopy. One canvas, fixed behind the whole page: drifting
+     light, a glow that follows the cursor, and leaves that scatter
+     away from it. Drawn in script.js §5. -->
+<canvas class="dapple" id="dapple" aria-hidden="true"></canvas>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════════
+     Sticky. The nav links highlight themselves as you scroll past each
+     section (scroll-spy, in script.js).                              -->
+<header class="site-head" id="head">
+  <a class="brand" href="#top">
+    <!-- the badge, in place of the old OTC lettering. A JPEG has no
+         transparency, so styles.css clips it to a circle to drop the
+         white corners. -->
+    <img class="brand-logo" src="images/logo.jpeg" alt="" aria-hidden="true">
+    <span class="brand-name">Old Tree Cafe</span>
+  </a>
+
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="#story">The tree</a>
+    <a data-ev="menu_view" href="#menu">Menu</a>
+    <a href="#events">Events</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#visit">Visit</a>
+  </nav>
+
+  <div class="head-right">
+    <span class="status" id="status" hidden></span>
+    <a data-ev="book_click" class="btn btn-solid btn-sm" href="#book">Book a table</a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="bars" aria-hidden="true"></span>
+      <span class="sr">Menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+
+  <!-- ══ SPLASH ═════════════════════════════════════════════════════
+       The first screen. The photo fills the whole panel, and the
+       lockup — mark, OTC, name — sits on top of it in solid colour.
+       OTC sits on a pane of frosted glass, which blurs the photo
+       under it. The mark and the name are plain ink. See styles.css.
+
+       The photo behind the glass is images/splash.avif. It drifts a
+       little with the pointer — script.js §13. -->
+  <section class="splash" id="splash">
+    <img class="splash-photo" src="images/splash.avif" alt="" aria-hidden="true" fetchpriority="high">
+
+    <div class="splash-lockup">
+      <p class="splash-otc">OTC</p>
+      <p class="splash-name">Old Tree Cafe · Kandlakoya</p>
+    </div>
+
+  </section>
+  <!-- ══ HERO ═══════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow">Kandlakoya · NH&#8209;44 · Kompally</p>
+      <h1>Coffee under<br>the old tree.</h1>
+      <p class="lede">An open garden cafe where the seating sits under the
+        plants, not beside them. Wood-fired pizza, all-day breakfast and a
+        long tea list, from ten in the morning till eleven at night.</p>
+
+      <div class="hero-actions">
+        <a data-ev="book_click" class="btn btn-solid" href="#book">Book a table</a>
+        <a data-ev="menu_view" class="btn btn-ghost" href="#menu">See the menu</a>
+      </div>
+
+      <dl class="facts">
+        <div><dt>Open daily</dt><dd class="mono">10:00 – 23:00</dd></div>
+        <div><dt>Two people</dt><dd class="mono">~₹1,000</dd></div>
+        <div><dt>Google rating</dt><dd class="mono"><span data-count="4.6" data-dp="1">4.6</span> ★</dd></div>
+      </dl>
+    </div>
+
+    <figure class="hero-shot">
+      <img class="ph ph-tall" src="images/garden.jpeg" alt="Garden seating, evening" decoding="async" loading="lazy">
+    </figure>
+
+  </section>
+
+  <!-- ══ THE TREE ═══════════════════════════════════════════════════ -->
+  <section class="story reveal" id="story">
+    <figure class="story-shot">
+      <img class="ph ph-tall" src="images/tree.jpeg" alt="The tree, from below" decoding="async" loading="lazy">
+    </figure>
+
+    <div class="story-copy">
+      <p class="eyebrow">OTC Cafe</p>
+      <h2 class="sec-title">The garden was built around the tree, not the other way round.</h2>
+      <p>Most places on this stretch of NH&#8209;44 cleared the plot first and
+        decided what to plant afterwards. OTC did the opposite. The tables were
+        laid out to keep the canopy overhead, which is why the seating wanders
+        instead of sitting in rows, and why the light on your table moves through
+        the afternoon.</p>
+      <p>It means a few things in practice. The garden is cooler than the car
+        park by a noticeable margin. Nobody minds a dog under the table. And at
+        about seven in the evening, when the lights come on in the branches, the
+        place stops looking like a cafe on a highway.</p>
+
+      <p class="pull">The plant-covered seating area is the reason most people
+        come back — you forget the highway is right there.</p>
+    </div>
+  </section>
+
+  <!-- ══ WHAT YOU GET ═══════════════════════════════════════════════ -->
+  <section class="band reveal">
+    <h2 class="sec-title">What you get when you sit down</h2>
+    <ul class="traits">
+      <li><img class="ph" src="images/canopy.jpeg" alt="Tables under the canopy" decoding="async" loading="lazy"><h3>Open garden seating</h3><p>Tables under a plant canopy, and an air-conditioned room inside for the months when that stops being charming.</p></li>
+      <li><img class="ph" src="images/guests.jpeg" alt="An afternoon table" decoding="async" loading="lazy"><h3>Dogs are welcome</h3><p>Bring them. The garden side is the easy place to sit with a pet, and nobody will look at you strangely.</p></li>
+      <li><img class="ph" src="images/evening.jpeg" alt="Under the lamps" decoding="async" loading="lazy"><h3>Live music nights</h3><p>Acoustic sets under the tree. Ring ahead to find out who is playing this week.</p></li>
+      <li><img class="ph" src="images/music.jpeg" alt="The screen, from the bar" decoding="async" loading="lazy"><h3>Match nights on screen</h3><p>The big games are screened. Come early on a match day — the garden fills before the toss.</p></li>
+      <li><img class="ph" src="images/chocolate-cake.jpeg" alt="Chocolate cake, for the table" decoding="async" loading="lazy"><h3>Kids are fine here</h3><p>Room to move around, food that isn't only for adults, and no glassware within reach of a toddler.</p></li>
+      <li><img class="ph" src="images/fried-chicken.jpeg" alt="Fried chicken and slaw" decoding="async" loading="lazy"><h3>Takeaway &amp; delivery</h3><p>The full kitchen packs to go. Call the cafe directly and skip the delivery-app markup.</p></li>
+    </ul>
+    <p class="note">No alcohol served. Air-conditioned indoors. Roadside parking on the service lane.</p>
+  </section>
+
+  <!-- ══ MENU ═══════════════════════════════════════════════════════
+       Top tabs (Food / Drinks / Sweet) then a course strip underneath.
+       Everything is rendered from the MENU object in script.js.      -->
+  <section class="menu reveal" id="menu">
+    <header class="menu-head">
+      <div>
+        <p class="eyebrow">Kitchen open 10:00 – 22:45</p>
+        <h2 class="sec-title">Menu</h2>
+      </div>
+      <p class="note">
+        <span class="mark mark-v" aria-hidden="true"></span> vegetarian
+        &nbsp; <span class="mark mark-n" aria-hidden="true"></span> non-veg
+        &nbsp;·&nbsp; prices subject to change
+      </p>
+    </header>
+
+    <!-- a look at the food before the list of it -->
+    <ul class="shot-strip">
+      <li><img class="ph ph-wide" src="images/pizza-board.jpeg" alt="Chicken pizza, off the stone" decoding="async" loading="lazy"></li>
+      <li><img class="ph ph-wide" src="images/platter-garden.jpeg" alt="Chilli garlic platter, from the kitchen" decoding="async" loading="lazy"></li>
+      <li><img class="ph ph-wide" src="images/latte-art.jpeg" alt="Two lattes, from the bar" decoding="async" loading="lazy"></li>
+    </ul>
+
+    <div class="tabs" id="menu-tabs" role="tablist" aria-label="Menu sections"></div>
+    <div class="subtabs" id="menu-subtabs"></div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </section>
+
+  <!-- ══ EVENTS ═════════════════════════════════════════════════════ -->
+  <section class="band reveal" id="events">
+    <h2 class="sec-title">What's on, week to week</h2>
+    <ul class="events">
+      <li>
+        <img class="ph" src="images/lights.jpeg" alt="Lights in the branches" decoding="async" loading="lazy">
+        <p class="when mono">Every Friday · 19:30</p>
+        <h3>Acoustic under the tree</h3>
+        <p>A single act, no amps to speak of, in the garden. Comes with the
+          sundowner menu. Tables go first — book if you want the good ones.</p>
+      </li>
+      <li>
+        <img class="ph" src="images/bar-evening.jpeg" alt="The bar at dusk" decoding="async" loading="lazy">
+        <p class="when mono">Match days · from kickoff</p>
+        <h3>Screened in the garden</h3>
+        <p>The big fixtures go up on the outdoor screen. Kitchen runs a
+          shorter, faster menu on those nights so the food keeps up.</p>
+      </li>
+      <li>
+        <img class="ph" src="images/quiet-hours.jpeg" alt="An afternoon table, garden behind" decoding="async" loading="lazy">
+        <p class="when mono">Daily · 16:00 – 19:00</p>
+        <h3>The quiet hours</h3>
+        <p>Between the lunch rush and the evening crowd. The best light of the
+          day comes through the canopy, and you can hear yourself think.</p>
+      </li>
+    </ul>
+    <p class="note">Ring ahead to confirm the week's line-up: <a data-ev="call_click" class="mono" href="tel:+918019409347">+91 80194 09347</a></p>
+  </section>
+
+  <!-- ══ GALLERY ════════════════════════════════════════════════════
+       Click any photo to open the lightbox (arrows, Esc, click-out). -->
+  <section class="band reveal" id="gallery">
+    <h2 class="sec-title">The place</h2>
+    <ul class="gallery" id="gallery-grid">
+      <li><button class="shot" data-cap="Tables under the canopy"><img class="ph" src="images/canopy.jpeg" alt="Canopy seating" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Margherita, straight off the stone"><img class="ph" src="images/pizza.jpeg" alt="Wood-fired pizza" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Afternoon coffee and cake"><img class="ph" src="images/coffee.jpeg" alt="Coffee &amp; cake" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The air-conditioned room inside"><img class="ph" src="images/indoors.jpeg" alt="Indoor room" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Friday, acoustic set in the garden"><img class="ph" src="images/music.jpeg" alt="Live music night" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Fig, ricotta and honey on sourdough"><img class="ph" src="images/fig-toast.jpeg" alt="Fig and ricotta toast" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Breakfast, before the rush"><img class="ph" src="images/breakfast.jpeg" alt="All-day breakfast" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Lights in the branches, about seven"><img class="ph" src="images/lights.jpeg" alt="Evening lights" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Under the pergola once the lamps are on"><img class="ph" src="images/evening.jpeg" alt="Rattan lamps at night" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The bar, lit, at the blue end of the evening"><img class="ph" src="images/bar-evening.jpeg" alt="The bar at dusk" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="The garden in the middle of the day"><img class="ph" src="images/garden-day.jpeg" alt="Garden, daytime" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="An afternoon table in the green"><img class="ph" src="images/guests.jpeg" alt="Guests in the garden" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Cappuccino, in the sun"><img class="ph" src="images/cappuccino.jpeg" alt="Cappuccino" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="What's going through the grinder this week"><img class="ph" src="images/beans.jpeg" alt="Beans at the machine" decoding="async" loading="lazy"></button></li>
+      <li><button class="shot" data-cap="Off the wok, with slaw"><img class="ph" src="images/noodles.jpeg" alt="Noodles" decoding="async" loading="lazy"></button></li>
+    </ul>
+  </section>
+
+  <!-- ══ REVIEWS ════════════════════════════════════════════════════ -->
+  <section class="reviews reveal" id="reviews">
+    <div class="review-stats">
+      <p class="eyebrow">Rated on Google</p>
+      <h2 class="sec-title sr">What people tend to say</h2>
+      <p class="big mono"><span data-count="4.6" data-dp="1">4.6</span><span class="star">★</span></p>
+      <p class="note">from <span class="mono" data-count="1100" data-suffix="+">1100+</span> ratings —
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad"
+           target="_blank" rel="noopener" data-ev="reviews_click">read them on Google</a></p>
+      <img class="ph" src="images/table-spread.jpeg" alt="A table of starters under the palms" decoding="async" loading="lazy">
+    </div>
+
+    <div class="carousel" id="reviews-carousel">
+      <div class="slides" id="review-slides"></div>
+      <p class="note">The rating above is real. The lines below are
+        our own words for the things people mention most — not quotations.</p>
+      <div class="carousel-foot">
+        <div class="dots" id="review-dots"></div>
+        <div class="arrows">
+          <button class="arrow" data-dir="-1" aria-label="Previous review">←</button>
+          <button class="arrow" data-dir="1" aria-label="Next review">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BOOKING ════════════════════════════════════════════════════
+       No server, no database. Submitting builds a WhatsApp message
+       and opens it in the cafe's chat.                              -->
+  <section class="book reveal" id="book">
+    <div class="book-copy">
+      <p class="eyebrow">Reservations</p>
+      <h2 class="sec-title">Hold a table under the tree.</h2>
+      <p>Fill this in and it opens WhatsApp with your booking already written
+        out. Someone at the cafe replies to confirm — usually within the hour
+        while the kitchen is open.</p>
+      <p class="note">Prefer to call? <a data-ev="call_click" class="mono" href="tel:+918019409347">+91 80194 09347</a></p>
+      <img class="ph ph-wide" src="images/table-empty.jpeg" alt="The table you are booking" decoding="async" loading="lazy">
+    </div>
+
+    <form class="book-form" id="book-form" novalidate>
+      <div class="field">
+        <label for="bk-name">Name</label>
+        <input id="bk-name" name="name" type="text" autocomplete="name" placeholder="Who is the table under?">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="bk-date">Date</label>
+          <input id="bk-date" name="date" type="date">
+        </div>
+
+        <div class="field">
+          <span class="label" id="bk-guests-label">Guests</span>
+          <div class="stepper" role="group" aria-labelledby="bk-guests-label">
+            <button type="button" data-step="-1" aria-label="One fewer guest">−</button>
+            <output class="mono" id="bk-guests">2</output>
+            <button type="button" data-step="1" aria-label="One more guest">+</button>
+          </div>
+        </div>
+      </div>
+
+      <fieldset class="field">
+        <legend>Time</legend>
+        <div class="pills" id="bk-times"></div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Seating</legend>
+        <div class="pills" id="bk-seating">
+          <button type="button" class="pill is-on" aria-pressed="true" data-seat="Garden">Garden</button>
+          <button type="button" class="pill" aria-pressed="false" data-seat="Indoors">Indoors</button>
+        </div>
+      </fieldset>
+
+      <p class="form-error" id="bk-error" role="alert" hidden></p>
+      <button class="btn btn-solid btn-block" type="submit">Send on WhatsApp</button>
+      <p class="note">Nothing is stored on this website. The message goes straight to the cafe.</p>
+    </form>
+  </section>
+
+  <!-- ══ VISIT ══════════════════════════════════════════════════════ -->
+  <section class="visit reveal" id="visit">
+    <div>
+      <h2 class="sec-title">Find us</h2>
+      <address>
+        H.No 2&#8209;66/1, Kandlakoya<br>
+        Opposite KSR Convention, NH&#8209;44<br>
+        Medchal, Kompally<br>
+        Hyderabad 501401
+      </address>
+      <p class="landmark">Coming from the city, it is on the service lane just
+        past KSR Convention — if you reach the Kandlakoya flyover you have gone
+        a few hundred metres too far.</p>
+      <p class="contact mono">
+        <a data-ev="call_click" href="tel:+918019409347">+91 80194 09347</a><br>
+        <a data-ev="instagram_click" href="https://www.instagram.com/otc.kompally/" target="_blank" rel="noopener">@otc.kompally</a>
+      </p>
+      <img class="ph ph-wide" src="images/entrance.jpeg" alt="The sign, off NH-44" decoding="async" loading="lazy">
+
+      <!-- A live Google map in a box: drag, zoom and Street View all
+           work in place. 'View larger map' inside it opens the real
+           thing with directions, which is what the old button did.
+           output=embed needs no API key. loading=lazy keeps Google off
+           the wire until someone scrolls this far down. -->
+      <figure class="map">
+        <iframe
+          title="Map showing Old Tree Cafe, Kandlakoya, Kompally"
+          src="https://maps.google.com/maps?q=Old+Tree+Cafe+Kandlakoya+Kompally+Hyderabad+501401&amp;z=16&amp;output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </figure>
+      <div class="hero-actions">
+        <a class="btn btn-solid" data-ev="whatsapp_click" id="wa-visit" href="#">Message on WhatsApp</a>
+      </div>
+    </div>
+
+    <div>
+      <table class="hours">
+        <caption>Opening hours</caption>
+        <tbody>
+          <tr><th scope="row">Monday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Tuesday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Wednesday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Thursday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Friday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Saturday</th><td class="mono">10:00 – 23:00</td></tr>
+          <tr><th scope="row">Sunday</th><td class="mono">10:00 – 23:00</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Native <details> — an accordion with no JavaScript at all. -->
+      <div class="faq">
+        <h3 class="faq-title">Before you come</h3>
+        <details><summary>Can we bring a dog?</summary><p>Yes, in the garden. Water bowls on request. The indoor room is kept pet-free for people who would rather it was.</p></details>
+        <details><summary>Do we need to book?</summary><p>Not on a weekday afternoon. For Friday and Saturday evenings, and any match night, book — the garden tables go first.</p></details>
+        <details><summary>Is there parking?</summary><p>Roadside on the service lane. It fills up on weekend evenings, so leave a few minutes for it.</p></details>
+        <details><summary>Do you serve alcohol?</summary><p>No. The bar is coffee, tea, coolers and shakes.</p></details>
+        <details><summary>Can you do a large group or a birthday?</summary><p>Yes — call ahead so a section of the garden can be held. Outside cake is fine.</p></details>
+        <details><summary>What is the last order?</summary><p>The kitchen takes its last order at 22:45. The cafe closes at 23:00.</p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div>
+    <p class="brand-mark" aria-hidden="true">OTC</p>
+    <p>Old Tree Cafe · Kandlakoya, Kompally, Hyderabad 501401</p>
+  </div>
+  <nav class="foot-nav" aria-label="Footer">
+    <a href="#story">The tree</a>
+    <a data-ev="menu_view" href="#menu">Menu</a>
+    <a href="#events">Events</a>
+    <a data-ev="book_click" href="#book">Book</a>
+  </nav>
+  <p class="mono">
+    <a data-ev="call_click" href="tel:+918019409347">+91 80194 09347</a> ·
+    <a data-ev="instagram_click" href="https://www.instagram.com/otc.kompally/" target="_blank" rel="noopener">Instagram</a>
+  </p>
+</footer>
+
+<!-- Gallery lightbox. Hidden until a photo is clicked. -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-arrow lb-prev" data-dir="-1" aria-label="Previous photo">←</button>
+  <figure class="lb-stage">
+    <div class="lb-img" id="lb-img"></div>
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+  <button class="lb-arrow lb-next" data-dir="1" aria-label="Next photo">→</button>
+</div>
+
+<script src="code/script.js"></script>
+</body>
+</html>

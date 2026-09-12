@@ -1,0 +1,22 @@
+# ── secrets ──────────────────────────────────────────────────
+# This site has no backend and needs none of these today. They are
+# listed so that the day one appears, `git add .` cannot publish it.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── local working notes, not for publication ─────────────────
+# These stay on disk; they are just not part of the public repo.
+SESSION ID.txt
+CLAUDE.md
+HANDOFF.md
+WEBSITE-CONTENTS.txt
+
+# ── os / editor noise ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
